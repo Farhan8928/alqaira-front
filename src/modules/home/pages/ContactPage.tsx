@@ -19,8 +19,16 @@ export function ContactPage() {
         <div className="space-y-5">
           <Info icon={Phone} label="Phone" value={settings?.supportPhone || "+971 50 123 4567"} />
           <Info icon={Mail} label="Email" value={settings?.supportEmail || "info@alqaira.com"} />
-          <Info icon={MessageCircle} label="WhatsApp" value={settings?.whatsapp || "+971 50 123 4567"} />
-          <Info icon={MapPin} label="Address" value={settings?.addressLine || "Dubai, United Arab Emirates"} />
+          <Info
+            icon={MessageCircle}
+            label="WhatsApp"
+            value={settings?.whatsapp || "+971 50 123 4567"}
+          />
+          <Info
+            icon={MapPin}
+            label="Address"
+            value={settings?.addressLine || "Dubai, United Arab Emirates"}
+          />
         </div>
 
         <form
@@ -32,13 +40,18 @@ export function ContactPage() {
           className="rounded-2xl border border-border bg-card p-6"
         >
           {sent ? (
-            <p className="py-10 text-center text-sm text-success">Your message has been sent. Thank you!</p>
+            <p className="py-10 text-center text-sm text-success">
+              Your message has been sent. Thank you!
+            </p>
           ) : (
             <>
               <input placeholder="Your name" required className={inp} />
               <input placeholder="Email" type="email" required className={`${inp} mt-3`} />
               <textarea placeholder="Your message" rows={5} required className={`${inp} mt-3`} />
-              <button type="submit" className="mt-4 w-full rounded-full bg-navy py-3 text-sm font-semibold text-white">
+              <button
+                type="submit"
+                className="mt-4 w-full rounded-full bg-navy py-3 text-sm font-semibold text-white"
+              >
                 Send Message
               </button>
             </>
@@ -49,7 +62,15 @@ export function ContactPage() {
   );
 }
 
-function Info({ icon: Icon, label, value }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string }) {
+function Info({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+}) {
   return (
     <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-4">
       <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold/15 text-gold-dark">
@@ -63,4 +84,5 @@ function Info({ icon: Icon, label, value }: { icon: React.ComponentType<{ classN
   );
 }
 
-const inp = "w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+const inp =
+  "w-full rounded-lg border border-input bg-background px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring";

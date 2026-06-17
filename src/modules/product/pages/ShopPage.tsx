@@ -74,7 +74,9 @@ export function ShopPage() {
             {(["men", "women", "kids"] as Section[]).map((s) => (
               <button
                 key={s}
-                onClick={() => update({ section: section === s ? undefined : s, category: undefined })}
+                onClick={() =>
+                  update({ section: section === s ? undefined : s, category: undefined })
+                }
                 className={cn(
                   "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
                   section === s ? "bg-navy text-white" : "hover:bg-secondary",
@@ -93,7 +95,9 @@ export function ShopPage() {
                   onClick={() => update({ category: category === c.slug ? undefined : c.slug })}
                   className={cn(
                     "block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors",
-                    category === c.slug ? "bg-gold/20 font-medium text-gold-dark" : "hover:bg-secondary",
+                    category === c.slug
+                      ? "bg-gold/20 font-medium text-gold-dark"
+                      : "hover:bg-secondary",
                   )}
                 >
                   {c.name}
@@ -128,7 +132,9 @@ export function ShopPage() {
             {(["men", "women", "kids"] as Section[]).map((s) => (
               <button
                 key={s}
-                onClick={() => update({ section: section === s ? undefined : s, category: undefined })}
+                onClick={() =>
+                  update({ section: section === s ? undefined : s, category: undefined })
+                }
                 className={cn(
                   "shrink-0 rounded-full border px-4 py-1.5 text-sm",
                   section === s ? "border-navy bg-navy text-white" : "border-border",

@@ -24,8 +24,12 @@ export function useLogin() {
 
 export function useUpdateProfile() {
   return useMutation({
-    mutationFn: (payload: { name?: string; phone?: string; password?: string; currentPassword?: string }) =>
-      updateProfile(payload),
+    mutationFn: (payload: {
+      name?: string;
+      phone?: string;
+      password?: string;
+      currentPassword?: string;
+    }) => updateProfile(payload),
   });
 }
 

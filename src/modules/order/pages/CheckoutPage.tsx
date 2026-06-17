@@ -74,7 +74,8 @@ export function CheckoutPage() {
   const canOnline = paymentConfig?.onlinePaymentEnabled && paymentConfig?.razorpayConfigured;
 
   const orderItems = useMemo(
-    () => items.map((i) => ({ productId: i.productId, variantId: i.variantId, quantity: i.quantity })),
+    () =>
+      items.map((i) => ({ productId: i.productId, variantId: i.variantId, quantity: i.quantity })),
     [items],
   );
 
@@ -82,7 +83,10 @@ export function CheckoutPage() {
     return (
       <div className="mx-auto max-w-md px-4 py-24 text-center">
         <h1 className="font-display text-3xl text-foreground">Your bag is empty</h1>
-        <button onClick={() => navigate("/shop")} className="mt-6 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white">
+        <button
+          onClick={() => navigate("/shop")}
+          className="mt-6 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white"
+        >
           Shop now
         </button>
       </div>
@@ -170,7 +174,10 @@ export function CheckoutPage() {
     <div className="aq-page mx-auto max-w-6xl px-4 py-10 md:px-6">
       <h1 className="font-display text-4xl text-foreground">Checkout</h1>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 grid gap-10 lg:grid-cols-[1fr_400px]">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mt-8 grid gap-10 lg:grid-cols-[1fr_400px]"
+      >
         {/* Left: forms */}
         <div className="space-y-8">
           <Section title="Contact">
@@ -181,7 +188,11 @@ export function CheckoutPage() {
               <Field label="Phone" error={form.formState.errors.phone?.message}>
                 <input {...form.register("phone")} className={inputCls} />
               </Field>
-              <Field label="Email" error={form.formState.errors.email?.message} className="sm:col-span-2">
+              <Field
+                label="Email"
+                error={form.formState.errors.email?.message}
+                className="sm:col-span-2"
+              >
                 <input {...form.register("email")} className={inputCls} />
               </Field>
             </div>
@@ -189,7 +200,11 @@ export function CheckoutPage() {
 
           <Section title="Shipping Address">
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Address Line 1" error={form.formState.errors.line1?.message} className="sm:col-span-2">
+              <Field
+                label="Address Line 1"
+                error={form.formState.errors.line1?.message}
+                className="sm:col-span-2"
+              >
                 <input {...form.register("line1")} className={inputCls} />
               </Field>
               <Field label="Address Line 2 (optional)" className="sm:col-span-2">
@@ -198,7 +213,7 @@ export function CheckoutPage() {
               <Field label="City" error={form.formState.errors.city?.message}>
                 <input {...form.register("city")} className={inputCls} />
               </Field>
-              <Field label="State" >
+              <Field label="State">
                 <input {...form.register("state")} className={inputCls} />
               </Field>
               <Field label="Pincode" error={form.formState.errors.pincode?.message}>
@@ -245,7 +260,9 @@ export function CheckoutPage() {
                   <p className="line-clamp-1 text-foreground">{i.name}</p>
                   <p className="text-xs text-muted-foreground">Size {i.size}</p>
                 </div>
-                <span className="aq-nums text-sm text-foreground">{formatCurrency(i.price * i.quantity)}</span>
+                <span className="aq-nums text-sm text-foreground">
+                  {formatCurrency(i.price * i.quantity)}
+                </span>
               </div>
             ))}
           </div>
@@ -273,7 +290,13 @@ export function CheckoutPage() {
 
           <div className="mt-5 space-y-2.5 border-t border-border pt-4 text-sm">
             <Row label="Subtotal" value={formatCurrency(subtotal)} />
-            {discount > 0 && <Row label={`Discount (${appliedCode})`} value={`− ${formatCurrency(discount)}`} accent />}
+            {discount > 0 && (
+              <Row
+                label={`Discount (${appliedCode})`}
+                value={`− ${formatCurrency(discount)}`}
+                accent
+              />
+            )}
             <Row label="Shipping" value={shipping === 0 ? "Free" : formatCurrency(shipping)} />
             <div className="border-t border-border pt-2.5">
               <Row label="Total" value={formatCurrency(total)} bold />
@@ -355,26 +378,52 @@ function PayOption({
         disabled && "cursor-not-allowed opacity-50",
       )}
     >
-      <span className={cn("flex h-10 w-10 items-center justify-center rounded-full", active ? "bg-navy text-white" : "bg-secondary text-navy")}>
+      <span
+        className={cn(
+          "flex h-10 w-10 items-center justify-center rounded-full",
+          active ? "bg-navy text-white" : "bg-secondary text-navy",
+        )}
+      >
         <Icon className="h-5 w-5" />
       </span>
       <span className="flex-1">
         <span className="block text-sm font-medium text-foreground">{title}</span>
         <span className="block text-xs text-muted-foreground">{desc}</span>
       </span>
-      <span className={cn("h-4 w-4 rounded-full border-2", active ? "border-navy bg-navy" : "border-muted-foreground")} />
+      <span
+        className={cn(
+          "h-4 w-4 rounded-full border-2",
+          active ? "border-navy bg-navy" : "border-muted-foreground",
+        )}
+      />
     </button>
   );
 }
 
-function Row({ label, value, bold, accent }: { label: string; value: string; bold?: boolean; accent?: boolean }) {
+function Row({
+  label,
+  value,
+  bold,
+  accent,
+}: {
+  label: string;
+  value: string;
+  bold?: boolean;
+  accent?: boolean;
+}) {
   return (
     <div className="flex justify-between">
-      <span className={bold ? "font-semibold text-foreground" : "text-muted-foreground"}>{label}</span>
+      <span className={bold ? "font-semibold text-foreground" : "text-muted-foreground"}>
+        {label}
+      </span>
       <span
         className={cn(
           "aq-nums",
-          bold ? "text-lg font-bold text-foreground" : accent ? "text-gold-dark" : "text-foreground",
+          bold
+            ? "text-lg font-bold text-foreground"
+            : accent
+              ? "text-gold-dark"
+              : "text-foreground",
         )}
       >
         {value}

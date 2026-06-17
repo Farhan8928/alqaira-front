@@ -42,7 +42,9 @@ export function AdminTopbar({ onMenu }: { onMenu: () => void }) {
         </span>
         <div className="hidden text-left sm:block">
           <p className="text-sm font-semibold leading-tight text-foreground">{user?.name}</p>
-          <p className="text-[11px] text-muted-foreground">{user?.role ? ROLE_LABELS[user.role] : ""}</p>
+          <p className="text-[11px] text-muted-foreground">
+            {user?.role ? ROLE_LABELS[user.role] : ""}
+          </p>
         </div>
       </div>
       <button

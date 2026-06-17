@@ -21,12 +21,19 @@ export function StatCard({ label, value, hint, icon: Icon, tone = "navy" }: Stat
     <div className="aq-tile">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {label}
+          </p>
           <p className="aq-nums mt-2 text-2xl font-bold text-foreground">{value}</p>
           {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
         </div>
         {Icon && (
-          <span className={cn("flex h-11 w-11 shrink-0 items-center justify-center rounded-xl", TONE[tone])}>
+          <span
+            className={cn(
+              "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
+              TONE[tone],
+            )}
+          >
             <Icon className="h-5 w-5" />
           </span>
         )}

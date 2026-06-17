@@ -12,7 +12,12 @@ export function OrdersPage() {
   const [status, setStatus] = useState("");
   const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useAdminOrders({ search, status: status || undefined, page, limit: 20 });
+  const { data, isLoading } = useAdminOrders({
+    search,
+    status: status || undefined,
+    page,
+    limit: 20,
+  });
   const meta = data?.meta;
 
   return (
@@ -45,7 +50,9 @@ export function OrdersPage() {
               }}
               className={cn(
                 "rounded-full border px-3 py-1.5 text-xs font-medium capitalize",
-                status === s ? "border-navy bg-navy text-white" : "border-border hover:bg-secondary",
+                status === s
+                  ? "border-navy bg-navy text-white"
+                  : "border-border hover:bg-secondary",
               )}
             >
               {s || "All"}
@@ -68,14 +75,25 @@ export function OrdersPage() {
           </thead>
           <tbody className="divide-y divide-border">
             {isLoading ? (
-              <tr><td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">Loading…</td></tr>
+              <tr>
+                <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
+                  Loading…
+                </td>
+              </tr>
             ) : data?.items.length === 0 ? (
-              <tr><td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">No orders found.</td></tr>
+              <tr>
+                <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
+                  No orders found.
+                </td>
+              </tr>
             ) : (
               data?.items.map((o) => (
                 <tr key={o.id} className="hover:bg-muted/30">
                   <td className="px-4 py-3">
-                    <Link to={`/admin/orders/${o.id}`} className="font-medium text-foreground hover:text-gold-dark">
+                    <Link
+                      to={`/admin/orders/${o.id}`}
+                      className="font-medium text-foreground hover:text-gold-dark"
+                    >
                       {o.orderNumber}
                     </Link>
                     <p className="text-xs text-muted-foreground">{o.items.length} item(s)</p>
@@ -87,12 +105,18 @@ export function OrdersPage() {
                   <td className="px-4 py-3 text-muted-foreground">{formatDate(o.placedAt)}</td>
                   <td className="px-4 py-3">
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs uppercase text-muted-foreground">{o.paymentMethod}</span>
+                      <span className="text-xs uppercase text-muted-foreground">
+                        {o.paymentMethod}
+                      </span>
                       <PaymentBadge status={o.paymentStatus} />
                     </div>
                   </td>
-                  <td className="px-4 py-3"><OrderStatusBadge status={o.status} /></td>
-                  <td className="aq-nums px-4 py-3 text-right font-semibold text-foreground">{formatCurrency(o.total)}</td>
+                  <td className="px-4 py-3">
+                    <OrderStatusBadge status={o.status} />
+                  </td>
+                  <td className="aq-nums px-4 py-3 text-right font-semibold text-foreground">
+                    {formatCurrency(o.total)}
+                  </td>
                 </tr>
               ))
             )}
@@ -102,11 +126,21 @@ export function OrdersPage() {
 
       {meta && meta.totalPages > 1 && (
         <div className="flex items-center justify-center gap-3">
-          <button disabled={!meta.hasPrevPage} onClick={() => setPage((p) => p - 1)} className="flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40">
+          <button
+            disabled={!meta.hasPrevPage}
+            onClick={() => setPage((p) => p - 1)}
+            className="flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40"
+          >
             <ChevronLeft className="h-4 w-4" /> Prev
           </button>
-          <span className="text-sm text-muted-foreground">Page {meta.page} of {meta.totalPages}</span>
-          <button disabled={!meta.hasNextPage} onClick={() => setPage((p) => p + 1)} className="flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40">
+          <span className="text-sm text-muted-foreground">
+            Page {meta.page} of {meta.totalPages}
+          </span>
+          <button
+            disabled={!meta.hasNextPage}
+            onClick={() => setPage((p) => p + 1)}
+            className="flex items-center gap-1 rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40"
+          >
             Next <ChevronRight className="h-4 w-4" />
           </button>
         </div>

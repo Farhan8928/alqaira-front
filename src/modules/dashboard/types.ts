@@ -12,5 +12,12 @@ export type DashboardData = {
   revenueByDay: { date: string; revenue: number; orders: number }[];
   recentOrders: Order[];
   catalog: { totalProducts: number; activeProducts: number; customers: number };
-  lowStock: { id: string; name: string; slug: string; categoryName?: string; image?: string; totalStock: number }[];
+  lowStock: {
+    id: string;
+    name: string;
+    slug: string;
+    categoryName?: string;
+    image?: string;
+    totalStock: number;
+  }[];
 };

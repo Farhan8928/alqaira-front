@@ -27,9 +27,27 @@ export function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Total Revenue" value={formatCurrency(data.summary.revenue)} icon={IndianRupee} tone="gold" hint={`${formatCurrency(data.summary.thisMonthRevenue)} this month`} />
-        <StatCard label="Total Orders" value={data.summary.orders} icon={ShoppingCart} tone="navy" hint={`${data.summary.thisMonthOrders} this month`} />
-        <StatCard label="Products" value={data.catalog.totalProducts} icon={Package} tone="info" hint={`${data.catalog.activeProducts} active`} />
+        <StatCard
+          label="Total Revenue"
+          value={formatCurrency(data.summary.revenue)}
+          icon={IndianRupee}
+          tone="gold"
+          hint={`${formatCurrency(data.summary.thisMonthRevenue)} this month`}
+        />
+        <StatCard
+          label="Total Orders"
+          value={data.summary.orders}
+          icon={ShoppingCart}
+          tone="navy"
+          hint={`${data.summary.thisMonthOrders} this month`}
+        />
+        <StatCard
+          label="Products"
+          value={data.catalog.totalProducts}
+          icon={Package}
+          tone="info"
+          hint={`${data.catalog.activeProducts} active`}
+        />
         <StatCard label="Customers" value={data.catalog.customers} icon={Users} tone="success" />
       </div>
 
@@ -47,10 +65,20 @@ export function DashboardPage() {
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(d) => String(d).slice(5)} />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 11 }}
+                  tickFormatter={(d) => String(d).slice(5)}
+                />
                 <YAxis tick={{ fontSize: 11 }} width={50} />
                 <Tooltip formatter={(v) => formatCurrency(Number(v))} />
-                <Area type="monotone" dataKey="revenue" stroke="#A6822F" fill="url(#rev)" strokeWidth={2} />
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#A6822F"
+                  fill="url(#rev)"
+                  strokeWidth={2}
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -60,7 +88,9 @@ export function DashboardPage() {
         <div className="aq-tile">
           <h2 className="mb-4 font-medium text-foreground">Orders by Status</h2>
           <div className="space-y-3">
-            {data.statusBreakdown.length === 0 && <p className="text-sm text-muted-foreground">No orders yet.</p>}
+            {data.statusBreakdown.length === 0 && (
+              <p className="text-sm text-muted-foreground">No orders yet.</p>
+            )}
             {data.statusBreakdown.map((s) => (
               <div key={s.status} className="flex items-center justify-between">
                 <OrderStatusBadge status={s.status} />
@@ -76,7 +106,9 @@ export function DashboardPage() {
         <div className="aq-tile lg:col-span-2">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-medium text-foreground">Recent Orders</h2>
-            <Link to="/admin/orders" className="text-sm text-gold-dark">View all</Link>
+            <Link to="/admin/orders" className="text-sm text-gold-dark">
+              View all
+            </Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -92,18 +124,29 @@ export function DashboardPage() {
                 {data.recentOrders.map((o) => (
                   <tr key={o.id}>
                     <td className="py-2.5">
-                      <Link to={`/admin/orders/${o.id}`} className="font-medium text-foreground hover:text-gold-dark">
+                      <Link
+                        to={`/admin/orders/${o.id}`}
+                        className="font-medium text-foreground hover:text-gold-dark"
+                      >
                         {o.orderNumber}
                       </Link>
                       <p className="text-xs text-muted-foreground">{formatDate(o.placedAt)}</p>
                     </td>
                     <td className="py-2.5 text-muted-foreground">{o.contact?.name}</td>
-                    <td className="py-2.5"><OrderStatusBadge status={o.status} /></td>
-                    <td className="aq-nums py-2.5 text-right font-medium text-foreground">{formatCurrency(o.total)}</td>
+                    <td className="py-2.5">
+                      <OrderStatusBadge status={o.status} />
+                    </td>
+                    <td className="aq-nums py-2.5 text-right font-medium text-foreground">
+                      {formatCurrency(o.total)}
+                    </td>
                   </tr>
                 ))}
                 {data.recentOrders.length === 0 && (
-                  <tr><td colSpan={4} className="py-8 text-center text-muted-foreground">No orders yet.</td></tr>
+                  <tr>
+                    <td colSpan={4} className="py-8 text-center text-muted-foreground">
+                      No orders yet.
+                    </td>
+                  </tr>
                 )}
               </tbody>
             </table>
@@ -117,7 +160,9 @@ export function DashboardPage() {
               <AlertTriangle className="h-4 w-4 text-warning" /> Low Stock
             </h2>
             <div className="space-y-2">
-              {data.lowStock.length === 0 && <p className="text-sm text-muted-foreground">All good.</p>}
+              {data.lowStock.length === 0 && (
+                <p className="text-sm text-muted-foreground">All good.</p>
+              )}
               {data.lowStock.map((p) => (
                 <div key={p.id} className="flex items-center justify-between text-sm">
                   <span className="line-clamp-1 text-foreground">{p.name}</span>
@@ -129,7 +174,9 @@ export function DashboardPage() {
           <div className="aq-tile">
             <h2 className="mb-3 font-medium text-foreground">Best Sellers</h2>
             <div className="space-y-2">
-              {data.topProducts.length === 0 && <p className="text-sm text-muted-foreground">No sales yet.</p>}
+              {data.topProducts.length === 0 && (
+                <p className="text-sm text-muted-foreground">No sales yet.</p>
+              )}
               {data.topProducts.map((p) => (
                 <div key={p.name} className="flex items-center justify-between text-sm">
                   <span className="line-clamp-1 text-foreground">{p.name}</span>

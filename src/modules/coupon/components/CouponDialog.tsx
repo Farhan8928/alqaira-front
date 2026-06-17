@@ -81,35 +81,77 @@ export function CouponDialog({
     >
       <div className="space-y-3">
         <Field label="Code">
-          <input value={form.code} onChange={(e) => setForm((f) => ({ ...f, code: e.target.value.toUpperCase() }))} className={inp} placeholder="WELCOME10" />
+          <input
+            value={form.code}
+            onChange={(e) => setForm((f) => ({ ...f, code: e.target.value.toUpperCase() }))}
+            className={inp}
+            placeholder="WELCOME10"
+          />
         </Field>
         <Field label="Description">
-          <input value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} className={inp} />
+          <input
+            value={form.description}
+            onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+            className={inp}
+          />
         </Field>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Type">
-            <select value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value as CouponPayload["type"] }))} className={inp}>
+            <select
+              value={form.type}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, type: e.target.value as CouponPayload["type"] }))
+              }
+              className={inp}
+            >
               <option value="percent">Percent (%)</option>
               <option value="flat">Flat (₹)</option>
             </select>
           </Field>
           <Field label="Value">
-            <input type="number" value={form.value} onChange={(e) => setForm((f) => ({ ...f, value: Number(e.target.value) }))} className={inp} />
+            <input
+              type="number"
+              value={form.value}
+              onChange={(e) => setForm((f) => ({ ...f, value: Number(e.target.value) }))}
+              className={inp}
+            />
           </Field>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <Field label="Min Order (₹)">
-            <input type="number" value={form.minOrderValue ?? ""} onChange={(e) => setForm((f) => ({ ...f, minOrderValue: num(e.target.value) }))} className={inp} />
+            <input
+              type="number"
+              value={form.minOrderValue ?? ""}
+              onChange={(e) => setForm((f) => ({ ...f, minOrderValue: num(e.target.value) }))}
+              className={inp}
+            />
           </Field>
           <Field label="Max Discount (₹)">
-            <input type="number" value={form.maxDiscount ?? ""} onChange={(e) => setForm((f) => ({ ...f, maxDiscount: num(e.target.value) }))} className={inp} placeholder="(percent cap)" />
+            <input
+              type="number"
+              value={form.maxDiscount ?? ""}
+              onChange={(e) => setForm((f) => ({ ...f, maxDiscount: num(e.target.value) }))}
+              className={inp}
+              placeholder="(percent cap)"
+            />
           </Field>
         </div>
         <Field label="Usage Limit">
-          <input type="number" value={form.usageLimit ?? ""} onChange={(e) => setForm((f) => ({ ...f, usageLimit: num(e.target.value) }))} className={inp} placeholder="Blank = unlimited" />
+          <input
+            type="number"
+            value={form.usageLimit ?? ""}
+            onChange={(e) => setForm((f) => ({ ...f, usageLimit: num(e.target.value) }))}
+            className={inp}
+            placeholder="Blank = unlimited"
+          />
         </Field>
         <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={!!form.isActive} onChange={(e) => setForm((f) => ({ ...f, isActive: e.target.checked }))} /> Active
+          <input
+            type="checkbox"
+            checked={!!form.isActive}
+            onChange={(e) => setForm((f) => ({ ...f, isActive: e.target.checked }))}
+          />{" "}
+          Active
         </label>
       </div>
     </FormDialog>
@@ -124,4 +166,5 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
     </div>
   );
 }
-const inp = "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+const inp =
+  "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";

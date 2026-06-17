@@ -23,7 +23,10 @@ export function AdminLoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [show, setShow] = useState(false);
 
-  const form = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { email: "", password: "" } });
+  const form = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "", password: "" },
+  });
 
   async function onSubmit(values: FormValues) {
     setError(null);
@@ -49,7 +52,9 @@ export function AdminLoginPage() {
             Manage products, orders, customers, coupons and reviews — all in one premium console.
           </p>
         </div>
-        <p className="text-xs text-white/40">© {new Date().getFullYear()} ALQAIRA · Admin Console</p>
+        <p className="text-xs text-white/40">
+          © {new Date().getFullYear()} ALQAIRA · Admin Console
+        </p>
       </div>
 
       <div className="flex items-center justify-center bg-background p-6">
@@ -70,20 +75,46 @@ export function AdminLoginPage() {
           <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
             <div>
               <label className="mb-1.5 block text-sm font-medium">Email</label>
-              <input {...form.register("email")} className={inputCls} placeholder="admin@alqaira.com" autoComplete="email" />
-              {form.formState.errors.email && <p className="mt-1 text-xs text-destructive">{form.formState.errors.email.message}</p>}
+              <input
+                {...form.register("email")}
+                className={inputCls}
+                placeholder="admin@alqaira.com"
+                autoComplete="email"
+              />
+              {form.formState.errors.email && (
+                <p className="mt-1 text-xs text-destructive">
+                  {form.formState.errors.email.message}
+                </p>
+              )}
             </div>
             <div>
               <label className="mb-1.5 block text-sm font-medium">Password</label>
               <div className="relative">
-                <input {...form.register("password")} type={show ? "text" : "password"} className={inputCls} autoComplete="current-password" />
-                <button type="button" onClick={() => setShow((v) => !v)} className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground">
+                <input
+                  {...form.register("password")}
+                  type={show ? "text" : "password"}
+                  className={inputCls}
+                  autoComplete="current-password"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShow((v) => !v)}
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground"
+                >
                   {show ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-              {form.formState.errors.password && <p className="mt-1 text-xs text-destructive">{form.formState.errors.password.message}</p>}
+              {form.formState.errors.password && (
+                <p className="mt-1 text-xs text-destructive">
+                  {form.formState.errors.password.message}
+                </p>
+              )}
             </div>
-            <button type="submit" disabled={login.isPending} className="w-full rounded-lg bg-navy py-3 text-sm font-semibold text-white disabled:opacity-50">
+            <button
+              type="submit"
+              disabled={login.isPending}
+              className="w-full rounded-lg bg-navy py-3 text-sm font-semibold text-white disabled:opacity-50"
+            >
               {login.isPending ? "Signing in…" : "Sign In"}
             </button>
           </form>

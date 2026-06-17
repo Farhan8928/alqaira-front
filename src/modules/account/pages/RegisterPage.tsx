@@ -43,9 +43,14 @@ export function RegisterPage() {
     <div className="mx-auto flex max-w-md flex-col items-center px-4 py-16">
       <LogoMark size={48} />
       <h1 className="mt-5 font-display text-4xl text-foreground">Create your account</h1>
-      <p className="mt-1 text-sm text-muted-foreground">Join ALQAIRA for faster checkout & order tracking.</p>
+      <p className="mt-1 text-sm text-muted-foreground">
+        Join ALQAIRA for faster checkout & order tracking.
+      </p>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 w-full rounded-2xl border border-border bg-card p-7">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mt-8 w-full rounded-2xl border border-border bg-card p-7"
+      >
         {error && (
           <div className="mb-4 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
             {error}
@@ -61,7 +66,12 @@ export function RegisterPage() {
           <input {...form.register("phone")} className={inputCls} />
         </FormField>
         <FormField label="Password" error={form.formState.errors.password?.message}>
-          <input {...form.register("password")} type="password" className={inputCls} autoComplete="new-password" />
+          <input
+            {...form.register("password")}
+            type="password"
+            className={inputCls}
+            autoComplete="new-password"
+          />
         </FormField>
 
         <button
@@ -75,13 +85,23 @@ export function RegisterPage() {
 
       <p className="mt-5 text-sm text-muted-foreground">
         Already have an account?{" "}
-        <Link to="/login" className="font-semibold text-gold-dark">Sign in</Link>
+        <Link to="/login" className="font-semibold text-gold-dark">
+          Sign in
+        </Link>
       </p>
     </div>
   );
 }
 
-function FormField({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function FormField({
+  label,
+  error,
+  children,
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="mt-4 first:mt-0">
       <label className="mb-1.5 block text-sm font-medium">{label}</label>

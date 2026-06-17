@@ -31,7 +31,9 @@ export function ProductsPage() {
           getValue: (p) => (
             <div className="flex items-center gap-3">
               <div className="h-12 w-10 overflow-hidden rounded-md bg-secondary">
-                {p.images?.[0] && <img src={p.images[0]} alt="" className="h-full w-full object-cover" />}
+                {p.images?.[0] && (
+                  <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
+                )}
               </div>
               <div>
                 <p className="font-medium text-foreground">{p.name}</p>
@@ -45,7 +47,9 @@ export function ProductsPage() {
         {
           header: "Stock",
           getValue: (p) => (
-            <span className={p.totalStock <= 5 ? "font-semibold text-destructive" : "text-foreground"}>
+            <span
+              className={p.totalStock <= 5 ? "font-semibold text-destructive" : "text-foreground"}
+            >
               {p.totalStock}
             </span>
           ),
@@ -54,9 +58,13 @@ export function ProductsPage() {
           header: "Status",
           getValue: (p) =>
             p.isActive ? (
-              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-600">Active</span>
+              <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs text-emerald-600">
+                Active
+              </span>
             ) : (
-              <span className="rounded-full bg-secondary px-2 py-0.5 text-xs text-muted-foreground">Hidden</span>
+              <span className="rounded-full bg-secondary px-2 py-0.5 text-xs text-muted-foreground">
+                Hidden
+              </span>
             ),
         },
       ]}

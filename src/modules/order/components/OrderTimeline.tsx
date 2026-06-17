@@ -29,7 +29,12 @@ export function OrderTimeline({ order }: { order: Order }) {
             >
               {done && <Check className="h-3.5 w-3.5" />}
             </span>
-            <p className={cn("text-sm font-medium capitalize", done ? "text-foreground" : "text-muted-foreground")}>
+            <p
+              className={cn(
+                "text-sm font-medium capitalize",
+                done ? "text-foreground" : "text-muted-foreground",
+              )}
+            >
               {status}
             </p>
             {event && <p className="text-xs text-muted-foreground">{formatDateTime(event.at)}</p>}

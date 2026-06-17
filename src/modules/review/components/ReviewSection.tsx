@@ -82,8 +82,10 @@ export function ReviewSection({ productId }: { productId: string }) {
             </form>
           ) : (
             <div className="rounded-2xl border border-border bg-card p-6 text-sm text-muted-foreground">
-              <Link to="/login" className="font-semibold text-gold-dark">Sign in</Link> to write a
-              review.
+              <Link to="/login" className="font-semibold text-gold-dark">
+                Sign in
+              </Link>{" "}
+              to write a review.
             </div>
           )}
         </div>
@@ -91,7 +93,9 @@ export function ReviewSection({ productId }: { productId: string }) {
         {/* List */}
         <div className="space-y-5">
           {reviews.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No reviews yet — be the first to review.</p>
+            <p className="text-sm text-muted-foreground">
+              No reviews yet — be the first to review.
+            </p>
           ) : (
             reviews.map((r) => (
               <div key={r.id} className="border-b border-border pb-5">
@@ -101,7 +105,9 @@ export function ReviewSection({ productId }: { productId: string }) {
                 </div>
                 {r.title && <p className="mt-2 font-medium text-foreground">{r.title}</p>}
                 {r.comment && <p className="mt-1 text-sm text-muted-foreground">{r.comment}</p>}
-                <p className="mt-2 text-xs font-medium text-gold-dark">{r.customerName || "Verified buyer"}</p>
+                <p className="mt-2 text-xs font-medium text-gold-dark">
+                  {r.customerName || "Verified buyer"}
+                </p>
               </div>
             ))
           )}

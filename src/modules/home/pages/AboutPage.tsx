@@ -15,9 +15,9 @@ export function AboutPage() {
       <section className="mx-auto max-w-3xl space-y-6 px-4 py-16 text-sm leading-relaxed text-muted-foreground md:px-6">
         <p>
           From the crisp lines of a Saudi thobe to the flowing grace of a Moroccan kaftan, every
-          ALQAIRA garment is crafted from premium fabric and finished with subtle detailing along the
-          placket and cuffs. We blend tradition and innovation to deliver refined simplicity with a
-          timeless presence.
+          ALQAIRA garment is crafted from premium fabric and finished with subtle detailing along
+          the placket and cuffs. We blend tradition and innovation to deliver refined simplicity
+          with a timeless presence.
         </p>
         <p>
           Our collections span Saudi, Omani, Emirati, Moroccan and designer styles for men, elegant
@@ -29,7 +29,10 @@ export function AboutPage() {
           Thank you for making us part of your wardrobe. Explore the collection and discover the
           craft behind every piece.
         </p>
-        <Link to="/shop" className="inline-block rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white">
+        <Link
+          to="/shop"
+          className="inline-block rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white"
+        >
           Shop the Collection
         </Link>
       </section>

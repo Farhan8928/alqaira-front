@@ -44,9 +44,17 @@ export function Logo({
 }
 
 /** Text wordmark — kept for places that want type only (e.g. compact footers). */
-export function Wordmark({ className, tone = "navy" }: { className?: string; tone?: "navy" | "light" }) {
+export function Wordmark({
+  className,
+  tone = "navy",
+}: {
+  className?: string;
+  tone?: "navy" | "light";
+}) {
   return (
-    <span className={cn("brand-mark text-xl", tone === "light" ? "text-white" : "text-navy", className)}>
+    <span
+      className={cn("brand-mark text-xl", tone === "light" ? "text-white" : "text-navy", className)}
+    >
       ALQAIRA
     </span>
   );

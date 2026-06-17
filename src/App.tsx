@@ -7,32 +7,82 @@ import { PageLoader } from "./shared/components/PageLoader";
 import { NotFound } from "./shared/components/NotFound";
 
 // ── Storefront ────────────────────────────────────────────────────────────────
-const HomePage = lazy(() => import("./modules/home/pages/HomePage").then((m) => ({ default: m.HomePage })));
-const ShopPage = lazy(() => import("./modules/product/pages/ShopPage").then((m) => ({ default: m.ShopPage })));
-const ProductPage = lazy(() => import("./modules/product/pages/ProductPage").then((m) => ({ default: m.ProductPage })));
-const CartPage = lazy(() => import("./modules/cart/pages/CartPage").then((m) => ({ default: m.CartPage })));
-const WishlistPage = lazy(() => import("./modules/wishlist/pages/WishlistPage").then((m) => ({ default: m.WishlistPage })));
-const CheckoutPage = lazy(() => import("./modules/order/pages/CheckoutPage").then((m) => ({ default: m.CheckoutPage })));
-const OrderConfirmedPage = lazy(() => import("./modules/order/pages/OrderConfirmedPage").then((m) => ({ default: m.OrderConfirmedPage })));
-const TrackOrderPage = lazy(() => import("./modules/order/pages/TrackOrderPage").then((m) => ({ default: m.TrackOrderPage })));
-const LoginPage = lazy(() => import("./modules/account/pages/LoginPage").then((m) => ({ default: m.LoginPage })));
-const RegisterPage = lazy(() => import("./modules/account/pages/RegisterPage").then((m) => ({ default: m.RegisterPage })));
-const AccountPage = lazy(() => import("./modules/account/pages/AccountPage").then((m) => ({ default: m.AccountPage })));
-const AboutPage = lazy(() => import("./modules/home/pages/AboutPage").then((m) => ({ default: m.AboutPage })));
-const ContactPage = lazy(() => import("./modules/home/pages/ContactPage").then((m) => ({ default: m.ContactPage })));
+const HomePage = lazy(() =>
+  import("./modules/home/pages/HomePage").then((m) => ({ default: m.HomePage })),
+);
+const ShopPage = lazy(() =>
+  import("./modules/product/pages/ShopPage").then((m) => ({ default: m.ShopPage })),
+);
+const ProductPage = lazy(() =>
+  import("./modules/product/pages/ProductPage").then((m) => ({ default: m.ProductPage })),
+);
+const CartPage = lazy(() =>
+  import("./modules/cart/pages/CartPage").then((m) => ({ default: m.CartPage })),
+);
+const WishlistPage = lazy(() =>
+  import("./modules/wishlist/pages/WishlistPage").then((m) => ({ default: m.WishlistPage })),
+);
+const CheckoutPage = lazy(() =>
+  import("./modules/order/pages/CheckoutPage").then((m) => ({ default: m.CheckoutPage })),
+);
+const OrderConfirmedPage = lazy(() =>
+  import("./modules/order/pages/OrderConfirmedPage").then((m) => ({
+    default: m.OrderConfirmedPage,
+  })),
+);
+const TrackOrderPage = lazy(() =>
+  import("./modules/order/pages/TrackOrderPage").then((m) => ({ default: m.TrackOrderPage })),
+);
+const LoginPage = lazy(() =>
+  import("./modules/account/pages/LoginPage").then((m) => ({ default: m.LoginPage })),
+);
+const RegisterPage = lazy(() =>
+  import("./modules/account/pages/RegisterPage").then((m) => ({ default: m.RegisterPage })),
+);
+const AccountPage = lazy(() =>
+  import("./modules/account/pages/AccountPage").then((m) => ({ default: m.AccountPage })),
+);
+const AboutPage = lazy(() =>
+  import("./modules/home/pages/AboutPage").then((m) => ({ default: m.AboutPage })),
+);
+const ContactPage = lazy(() =>
+  import("./modules/home/pages/ContactPage").then((m) => ({ default: m.ContactPage })),
+);
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
-const AdminLoginPage = lazy(() => import("./modules/auth/pages/AdminLoginPage").then((m) => ({ default: m.AdminLoginPage })));
-const DashboardPage = lazy(() => import("./modules/dashboard/pages/DashboardPage").then((m) => ({ default: m.DashboardPage })));
-const ProductsPage = lazy(() => import("./modules/product/pages/ProductsPage").then((m) => ({ default: m.ProductsPage })));
-const CategoriesPage = lazy(() => import("./modules/category/pages/CategoriesPage").then((m) => ({ default: m.CategoriesPage })));
-const OrdersPage = lazy(() => import("./modules/order/pages/OrdersPage").then((m) => ({ default: m.OrdersPage })));
-const OrderDetailPage = lazy(() => import("./modules/order/pages/OrderDetailPage").then((m) => ({ default: m.OrderDetailPage })));
-const CustomersPage = lazy(() => import("./modules/customer/pages/CustomersPage").then((m) => ({ default: m.CustomersPage })));
-const CouponsPage = lazy(() => import("./modules/coupon/pages/CouponsPage").then((m) => ({ default: m.CouponsPage })));
-const ReviewsPage = lazy(() => import("./modules/review/pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })));
-const SettingsPage = lazy(() => import("./modules/settings/pages/SettingsPage").then((m) => ({ default: m.SettingsPage })));
-const UsersPage = lazy(() => import("./modules/auth/pages/UsersPage").then((m) => ({ default: m.UsersPage })));
+const AdminLoginPage = lazy(() =>
+  import("./modules/auth/pages/AdminLoginPage").then((m) => ({ default: m.AdminLoginPage })),
+);
+const DashboardPage = lazy(() =>
+  import("./modules/dashboard/pages/DashboardPage").then((m) => ({ default: m.DashboardPage })),
+);
+const ProductsPage = lazy(() =>
+  import("./modules/product/pages/ProductsPage").then((m) => ({ default: m.ProductsPage })),
+);
+const CategoriesPage = lazy(() =>
+  import("./modules/category/pages/CategoriesPage").then((m) => ({ default: m.CategoriesPage })),
+);
+const OrdersPage = lazy(() =>
+  import("./modules/order/pages/OrdersPage").then((m) => ({ default: m.OrdersPage })),
+);
+const OrderDetailPage = lazy(() =>
+  import("./modules/order/pages/OrderDetailPage").then((m) => ({ default: m.OrderDetailPage })),
+);
+const CustomersPage = lazy(() =>
+  import("./modules/customer/pages/CustomersPage").then((m) => ({ default: m.CustomersPage })),
+);
+const CouponsPage = lazy(() =>
+  import("./modules/coupon/pages/CouponsPage").then((m) => ({ default: m.CouponsPage })),
+);
+const ReviewsPage = lazy(() =>
+  import("./modules/review/pages/ReviewsPage").then((m) => ({ default: m.ReviewsPage })),
+);
+const SettingsPage = lazy(() =>
+  import("./modules/settings/pages/SettingsPage").then((m) => ({ default: m.SettingsPage })),
+);
+const UsersPage = lazy(() =>
+  import("./modules/auth/pages/UsersPage").then((m) => ({ default: m.UsersPage })),
+);
 
 export default function App() {
   return (

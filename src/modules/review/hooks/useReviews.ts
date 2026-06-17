@@ -29,7 +29,10 @@ export function usePostReview(productId: string) {
 }
 
 export function useAdminReviews(query: ReviewListQuery) {
-  return useQuery({ queryKey: ["admin", "reviews", query], queryFn: () => adminListReviews(query) });
+  return useQuery({
+    queryKey: ["admin", "reviews", query],
+    queryFn: () => adminListReviews(query),
+  });
 }
 
 export function useSetReviewApproval() {

@@ -5,6 +5,10 @@ import { useFeaturedProducts, useNewArrivals } from "@/modules/product/hooks/use
 import { useCategories, useFeaturedCategories } from "@/modules/category/hooks/useCategories";
 import { Reveal } from "@/shared/components/Reveal";
 
+/* Muted, looped, <5MB clip of fabric movement → cinematic luxury video hero.
+   Set to null to fall back to the editorial image montage. */
+const HERO_VIDEO: string | null = "/hero.mp4";
+
 /* Heritage notes per regional men's style — authentic detail is the strongest
    premium signal for menswear (competitor benchmark). Keyed by category slug. */
 const REGION_BLURB: Record<string, string> = {
@@ -21,25 +25,53 @@ export function HomePage() {
   const { data: categories = [] } = useFeaturedCategories();
   const { data: menCategories = [] } = useCategories("men");
 
-  const heroImages = featured.map((p) => p.image).filter(Boolean).slice(0, 3) as string[];
+  const heroImages = featured
+    .map((p) => p.image)
+    .filter(Boolean)
+    .slice(0, 3) as string[];
   const regions = menCategories.filter((c) => REGION_BLURB[c.slug]);
 
   return (
     <div className="aq-page">
       {/* ── Hero — editorial split with film grain ──────────────────────────── */}
-      <section className="aq-grain relative overflow-hidden bg-navy text-white">
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
+      <section className="aq-grain relative flex min-h-[88vh] items-center overflow-hidden bg-navy text-white">
+        {/* Optional cinematic background video — drop a muted, looped, <5MB clip
+           of fabric movement at public/hero.mp4 and set HERO_VIDEO to enable.
+           Falls back to the editorial image montage when null. */}
+        {HERO_VIDEO && (
+          <>
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              src={HERO_VIDEO}
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={heroImages[0] ?? undefined}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 to-navy/55" />
+          </>
+        )}
+
+        <div
+          className={`relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-20 md:px-6 lg:py-28 ${
+            HERO_VIDEO ? "" : "lg:grid-cols-[1.05fr_0.95fr]"
+          }`}
+        >
           {/* Copy */}
-          <div className="reveal">
+          <div className="reveal max-w-2xl">
             <p className="eyebrow text-gold-light">Premium Thobes &amp; Jubba · Since ALQAIRA</p>
-            <h1 className="mt-6 font-display text-[2.75rem] font-semibold leading-[0.98] md:text-[5.25rem]">
+            <h1
+              className="mt-6 font-display font-semibold leading-[0.95]"
+              style={{ fontSize: "clamp(2.75rem, 7vw, 6.5rem)" }}
+            >
               Heritage tailoring,
               <br />
               <span className="font-accent text-gold-light">reimagined</span> for today.
             </h1>
             <p className="mt-7 max-w-md text-[15px] leading-relaxed text-white/65">
-              Saudi, Omani, Emirati, Moroccan &amp; designer thobes, kurta pajama and abayas —
-              cut from premium fabric for the discerning man and family.
+              Saudi, Omani, Emirati, Moroccan &amp; designer thobes, kurta pajama and abayas — cut
+              from premium fabric for the discerning man and family.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link to="/shop?section=men" className="btn-gold group">
@@ -63,22 +95,32 @@ export function HomePage() {
           </div>
 
           {/* Image montage — varied radii for an editorial, hand-set feel */}
-          <div className="reveal relative hidden h-[500px] lg:block">
-            {heroImages[0] && (
-              <div className="absolute right-0 top-0 h-[400px] w-[58%] overflow-hidden rounded-sm shadow-2xl ring-1 ring-white/10">
-                <img src={heroImages[0]} alt="" className="h-full w-full object-cover" />
+          {!HERO_VIDEO && (
+            <div className="reveal relative hidden h-[520px] lg:block">
+              {heroImages[0] && (
+                <div className="absolute right-0 top-0 h-[420px] w-[58%] overflow-hidden rounded-sm shadow-2xl ring-1 ring-white/10">
+                  <img src={heroImages[0]} alt="" className="h-full w-full object-cover" />
+                </div>
+              )}
+              {heroImages[1] && (
+                <div className="absolute bottom-0 left-0 h-[340px] w-[46%] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/10">
+                  <img src={heroImages[1]} alt="" className="h-full w-full object-cover" />
+                </div>
+              )}
+              <div className="absolute bottom-10 right-8 z-10 rounded-sm border border-gold/40 bg-navy/80 px-5 py-4 text-gold-light backdrop-blur">
+                <p className="font-display text-4xl leading-none">7</p>
+                <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.24em]">
+                  Signature Styles
+                </p>
               </div>
-            )}
-            {heroImages[1] && (
-              <div className="absolute bottom-0 left-0 h-[320px] w-[46%] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/10">
-                <img src={heroImages[1]} alt="" className="h-full w-full object-cover" />
-              </div>
-            )}
-            <div className="absolute bottom-10 right-8 z-10 rounded-sm border border-gold/40 bg-navy/80 px-5 py-4 text-gold-light backdrop-blur">
-              <p className="font-display text-4xl leading-none">7</p>
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.24em]">Signature Styles</p>
             </div>
-          </div>
+          )}
+        </div>
+
+        {/* Scroll cue */}
+        <div className="pointer-events-none absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/40 lg:flex">
+          <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <span className="h-8 w-px animate-pulse bg-gradient-to-b from-gold/70 to-transparent" />
         </div>
       </section>
 
@@ -109,11 +151,20 @@ export function HomePage() {
                 i === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-[3/4]"
               }`}
             >
-              {c.image && <img src={c.image} alt={c.name} loading="lazy" className="h-full w-full object-cover" />}
+              {c.image && (
+                <img
+                  src={c.image}
+                  alt={c.name}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/25 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5">
                 <div>
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-gold-light">{c.section}</p>
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-gold-light">
+                    {c.section}
+                  </p>
                   <h3 className="mt-1 font-display text-2xl leading-tight text-white">{c.name}</h3>
                 </div>
                 <span className="flex h-9 w-9 shrink-0 translate-y-2 items-center justify-center rounded-full bg-white/15 opacity-0 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
@@ -143,7 +194,12 @@ export function HomePage() {
                 className="group relative aspect-[3/4] w-[72%] shrink-0 snap-start overflow-hidden rounded-sm bg-secondary aq-zoom md:w-auto"
               >
                 {c.image && (
-                  <img src={c.image} alt={c.name} loading="lazy" className="h-full w-full object-cover" />
+                  <img
+                    src={c.image}
+                    alt={c.name}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
@@ -151,7 +207,9 @@ export function HomePage() {
                     {c.name.replace(/\s*(Style\s*)?Jubba$/i, "").trim() || c.name}
                   </p>
                   <h3 className="mt-1 font-display text-xl leading-tight text-white">{c.name}</h3>
-                  <p className="mt-2 text-[12px] leading-relaxed text-white/65">{REGION_BLURB[c.slug]}</p>
+                  <p className="mt-2 text-[12px] leading-relaxed text-white/65">
+                    {REGION_BLURB[c.slug]}
+                  </p>
                 </div>
               </Link>
             ))}
@@ -175,20 +233,32 @@ export function HomePage() {
           <div className="reveal">
             <div className="aq-rule" />
             <h2 className="mt-6 font-display text-4xl leading-[1.05] md:text-6xl">
-              The craft behind <span className="font-accent text-gold-light">every</span> ALQAIRA piece
+              The craft behind <span className="font-accent text-gold-light">every</span> ALQAIRA
+              piece
             </h2>
             <p className="mt-7 max-w-md text-[15px] leading-relaxed text-white/65">
               From the crisp Najdi placket to the flowing Moroccan kaftan, each garment is tailored
               with subtle detailing along the placket and cuffs — refined simplicity with a timeless
               presence.
             </p>
-            <Link to="/about" className="mt-9 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold hover:gap-3">
+            <Link
+              to="/about"
+              className="mt-9 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold hover:gap-3"
+            >
               Discover our story <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={featured[2]?.image || "/products/men-08.jpg"} alt="" className="aspect-[3/4] rounded-sm object-cover ring-1 ring-white/10" />
-            <img src={featured[3]?.image || "/products/women-02.jpg"} alt="" className="mt-10 aspect-[3/4] rounded-[2rem] object-cover ring-1 ring-white/10" />
+            <img
+              src={featured[2]?.image || "/products/men-08.jpg"}
+              alt=""
+              className="aspect-[3/4] rounded-sm object-cover ring-1 ring-white/10"
+            />
+            <img
+              src={featured[3]?.image || "/products/women-02.jpg"}
+              alt=""
+              className="mt-10 aspect-[3/4] rounded-[2rem] object-cover ring-1 ring-white/10"
+            />
           </div>
         </div>
       </section>
@@ -208,7 +278,8 @@ export function HomePage() {
         <Reveal className="relative overflow-hidden rounded-sm border border-gold/25 bg-secondary/60 px-6 py-16 text-center">
           <p className="eyebrow">The ALQAIRA List</p>
           <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl leading-[1.05] text-foreground md:text-5xl">
-            First look at new arrivals &amp; <span className="font-accent text-gold-dark">private</span> offers
+            First look at new arrivals &amp;{" "}
+            <span className="font-accent text-gold-dark">private</span> offers
           </h2>
           <form
             onSubmit={(e) => e.preventDefault()}
@@ -220,7 +291,9 @@ export function HomePage() {
               placeholder="Your email address"
               className="flex-1 rounded-full border border-input bg-background px-5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
-            <button type="submit" className="btn-primary">Subscribe</button>
+            <button type="submit" className="btn-primary">
+              Subscribe
+            </button>
           </form>
         </Reveal>
       </section>
@@ -237,7 +310,10 @@ function Heading({ eyebrow, title, link }: { eyebrow: string; title: string; lin
         <div className="mt-4 aq-rule" />
       </div>
       {link && (
-        <Link to={link} className="hidden shrink-0 items-center gap-1.5 text-sm font-medium uppercase tracking-[0.18em] text-gold-dark hover:gap-2.5 sm:flex">
+        <Link
+          to={link}
+          className="hidden shrink-0 items-center gap-1.5 text-sm font-medium uppercase tracking-[0.18em] text-gold-dark hover:gap-2.5 sm:flex"
+        >
           View all <ArrowRight className="h-4 w-4" />
         </Link>
       )}

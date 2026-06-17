@@ -6,7 +6,11 @@ import type { Customer } from "../types";
 
 export function CustomersPage() {
   const buildQuery = useCallback(
-    ({ search, page, limit }: { search: string; page: number; limit: number }) => ({ search, page, limit }),
+    ({ search, page, limit }: { search: string; page: number; limit: number }) => ({
+      search,
+      page,
+      limit,
+    }),
     [],
   );
 
@@ -21,8 +25,14 @@ export function CustomersPage() {
       useList={useCustomers}
       buildQuery={buildQuery}
       columns={[
-        { header: "Name", getValue: (c) => <span className="font-medium text-foreground">{c.name}</span> },
-        { header: "Email", getValue: (c) => <span className="text-muted-foreground">{c.email}</span> },
+        {
+          header: "Name",
+          getValue: (c) => <span className="font-medium text-foreground">{c.name}</span>,
+        },
+        {
+          header: "Email",
+          getValue: (c) => <span className="text-muted-foreground">{c.email}</span>,
+        },
         { header: "Phone", getValue: (c) => c.phone || "—" },
         { header: "Addresses", getValue: (c) => c.addresses?.length ?? 0 },
         { header: "Joined", getValue: (c) => formatDate(c.createdAt) },

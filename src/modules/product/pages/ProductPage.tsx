@@ -24,10 +24,13 @@ export function ProductPage() {
   const [variant, setVariant] = useState<Variant | null>(null);
   const [qty, setQty] = useState(1);
 
-  const wished = useAppSelector((s) => (data ? s.wishlist.items.some((i) => i.id === data.product.id) : false));
+  const wished = useAppSelector((s) =>
+    data ? s.wishlist.items.some((i) => i.id === data.product.id) : false,
+  );
 
   if (isLoading) return <PageLoader />;
-  if (!data) return <div className="py-24 text-center text-muted-foreground">Product not found.</div>;
+  if (!data)
+    return <div className="py-24 text-center text-muted-foreground">Product not found.</div>;
 
   const { product, related } = data;
   const images = product.images.length ? product.images : [""];
@@ -58,7 +61,10 @@ export function ProductPage() {
   return (
     <div className="aq-page mx-auto max-w-7xl px-4 py-10 md:px-6">
       <nav className="mb-6 text-xs text-muted-foreground">
-        <Link to="/" className="hover:text-gold-dark">Home</Link> /{" "}
+        <Link to="/" className="hover:text-gold-dark">
+          Home
+        </Link>{" "}
+        /{" "}
         <Link to={`/shop?section=${product.section}`} className="hover:text-gold-dark capitalize">
           {product.section}
         </Link>{" "}
@@ -84,14 +90,20 @@ export function ProductPage() {
           </div>
           <div className="aspect-[4/5] flex-1 overflow-hidden rounded-2xl bg-secondary">
             {images[activeImage] && (
-              <img src={images[activeImage]} alt={product.name} className="h-full w-full object-cover" />
+              <img
+                src={images[activeImage]}
+                alt={product.name}
+                className="h-full w-full object-cover"
+              />
             )}
           </div>
         </div>
 
         {/* Info */}
         <div>
-          <p className="text-xs uppercase tracking-[0.25em] text-gold-dark">{product.categoryName}</p>
+          <p className="text-xs uppercase tracking-[0.25em] text-gold-dark">
+            {product.categoryName}
+          </p>
           <h1 className="mt-2 font-display text-4xl text-foreground md:text-5xl">{product.name}</h1>
 
           {product.numReviews > 0 && (
@@ -114,7 +126,9 @@ export function ProductPage() {
           </div>
 
           {product.shortDescription && (
-            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{product.shortDescription}</p>
+            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+              {product.shortDescription}
+            </p>
           )}
 
           {/* Sizes */}
@@ -122,7 +136,9 @@ export function ProductPage() {
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium text-foreground">Select Size</span>
               {variant && variant.stock <= 5 && (
-                <span className="text-xs font-medium text-destructive">Only {variant.stock} left</span>
+                <span className="text-xs font-medium text-destructive">
+                  Only {variant.stock} left
+                </span>
               )}
             </div>
             <div className="flex flex-wrap gap-2">
@@ -151,7 +167,10 @@ export function ProductPage() {
           {/* Qty + actions */}
           <div className="mt-7 flex items-center gap-4">
             <div className="flex items-center rounded-lg border border-border">
-              <button onClick={() => setQty((q) => Math.max(1, q - 1))} className="px-4 py-2.5 text-lg">
+              <button
+                onClick={() => setQty((q) => Math.max(1, q - 1))}
+                className="px-4 py-2.5 text-lg"
+              >
                 −
               </button>
               <span className="w-10 text-center text-sm font-medium">{qty}</span>
@@ -209,7 +228,9 @@ export function ProductPage() {
           {/* Details */}
           <div className="mt-6 space-y-5 text-sm">
             {product.description && (
-              <Detail title="Description"><p className="leading-relaxed text-muted-foreground">{product.description}</p></Detail>
+              <Detail title="Description">
+                <p className="leading-relaxed text-muted-foreground">{product.description}</p>
+              </Detail>
             )}
 
             {/* Material & Craft — fabric storytelling, the primary premium signal */}
@@ -219,7 +240,9 @@ export function ProductPage() {
                   <p className="eyebrow text-gold-light">Material &amp; Craft</p>
                 </div>
                 <div className="px-5 py-4">
-                  <p className="font-display text-2xl leading-tight text-foreground">{product.fabric}</p>
+                  <p className="font-display text-2xl leading-tight text-foreground">
+                    {product.fabric}
+                  </p>
                   <p className="mt-1.5 leading-relaxed text-muted-foreground">
                     Cut and finished with subtle detailing along the placket and cuffs — refined
                     simplicity made to last and to wear with ease.
@@ -253,7 +276,13 @@ export function ProductPage() {
   );
 }
 
-function Perk({ icon: Icon, label }: { icon: React.ComponentType<{ className?: string }>; label: string }) {
+function Perk({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}) {
   return (
     <div className="flex flex-col items-center gap-1.5">
       <Icon className="h-5 w-5 text-gold-dark" />

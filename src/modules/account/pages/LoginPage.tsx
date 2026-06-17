@@ -24,7 +24,10 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [show, setShow] = useState(false);
 
-  const form = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { email: "", password: "" } });
+  const form = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { email: "", password: "" },
+  });
   const from = (location.state as { from?: string } | null)?.from || "/account";
 
   async function onSubmit(values: FormValues) {
@@ -44,15 +47,25 @@ export function LoginPage() {
       <h1 className="mt-5 font-display text-4xl text-foreground">Welcome back</h1>
       <p className="mt-1 text-sm text-muted-foreground">Sign in to your ALQAIRA account.</p>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-8 w-full rounded-2xl border border-border bg-card p-7">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mt-8 w-full rounded-2xl border border-border bg-card p-7"
+      >
         {error && (
           <div className="mb-4 rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
             {error}
           </div>
         )}
         <label className="mb-1.5 block text-sm font-medium">Email</label>
-        <input {...form.register("email")} className={inputCls} placeholder="you@email.com" autoComplete="email" />
-        {form.formState.errors.email && <p className="mt-1 text-xs text-destructive">{form.formState.errors.email.message}</p>}
+        <input
+          {...form.register("email")}
+          className={inputCls}
+          placeholder="you@email.com"
+          autoComplete="email"
+        />
+        {form.formState.errors.email && (
+          <p className="mt-1 text-xs text-destructive">{form.formState.errors.email.message}</p>
+        )}
 
         <label className="mb-1.5 mt-4 block text-sm font-medium">Password</label>
         <div className="relative">
@@ -62,11 +75,17 @@ export function LoginPage() {
             className={inputCls}
             autoComplete="current-password"
           />
-          <button type="button" onClick={() => setShow((v) => !v)} className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground">
+          <button
+            type="button"
+            onClick={() => setShow((v) => !v)}
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-muted-foreground"
+          >
             {show ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
-        {form.formState.errors.password && <p className="mt-1 text-xs text-destructive">{form.formState.errors.password.message}</p>}
+        {form.formState.errors.password && (
+          <p className="mt-1 text-xs text-destructive">{form.formState.errors.password.message}</p>
+        )}
 
         <button
           type="submit"
@@ -79,7 +98,9 @@ export function LoginPage() {
 
       <p className="mt-5 text-sm text-muted-foreground">
         New to ALQAIRA?{" "}
-        <Link to="/register" className="font-semibold text-gold-dark">Create an account</Link>
+        <Link to="/register" className="font-semibold text-gold-dark">
+          Create an account
+        </Link>
       </p>
     </div>
   );

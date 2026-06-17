@@ -41,7 +41,10 @@ export function OrderDetailPage() {
 
   return (
     <div className="aq-page space-y-6">
-      <Link to="/admin/orders" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+      <Link
+        to="/admin/orders"
+        className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+      >
         <ArrowLeft className="h-4 w-4" /> Back to orders
       </Link>
 
@@ -69,16 +72,29 @@ export function OrderDetailPage() {
                   </div>
                   <div className="flex-1">
                     <p className="font-medium text-foreground">{i.productName}</p>
-                    <p className="text-xs text-muted-foreground">Size {i.size}{i.color ? ` · ${i.color}` : ""} · Qty {i.quantity}</p>
+                    <p className="text-xs text-muted-foreground">
+                      Size {i.size}
+                      {i.color ? ` · ${i.color}` : ""} · Qty {i.quantity}
+                    </p>
                   </div>
-                  <span className="aq-nums font-medium text-foreground">{formatCurrency(i.lineTotal)}</span>
+                  <span className="aq-nums font-medium text-foreground">
+                    {formatCurrency(i.lineTotal)}
+                  </span>
                 </div>
               ))}
             </div>
             <div className="mt-4 space-y-1.5 border-t border-border pt-4 text-sm">
               <Row label="Subtotal" value={formatCurrency(order.subtotal)} />
-              {order.discount > 0 && <Row label={`Discount${order.couponCode ? ` (${order.couponCode})` : ""}`} value={`− ${formatCurrency(order.discount)}`} />}
-              <Row label="Shipping" value={order.shippingFee === 0 ? "Free" : formatCurrency(order.shippingFee)} />
+              {order.discount > 0 && (
+                <Row
+                  label={`Discount${order.couponCode ? ` (${order.couponCode})` : ""}`}
+                  value={`− ${formatCurrency(order.discount)}`}
+                />
+              )}
+              <Row
+                label="Shipping"
+                value={order.shippingFee === 0 ? "Free" : formatCurrency(order.shippingFee)}
+              />
               <Row label="Total" value={formatCurrency(order.total)} bold />
             </div>
           </div>
@@ -103,7 +119,9 @@ export function OrderDetailPage() {
                       onClick={() => setStatus(s)}
                       disabled={updateStatus.isPending}
                       className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium capitalize disabled:opacity-50 ${
-                        s === "cancelled" ? "bg-destructive text-destructive-foreground" : "bg-navy text-white"
+                        s === "cancelled"
+                          ? "bg-destructive text-destructive-foreground"
+                          : "bg-navy text-white"
                       }`}
                     >
                       {updateStatus.isPending && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
@@ -123,15 +141,23 @@ export function OrderDetailPage() {
             <p className="text-sm text-foreground">{order.contact?.name}</p>
             <p className="text-sm text-muted-foreground">{order.contact?.email}</p>
             <p className="text-sm text-muted-foreground">{order.contact?.phone}</p>
-            <p className="mt-2 text-xs text-muted-foreground">{order.isGuest ? "Guest checkout" : "Registered customer"}</p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {order.isGuest ? "Guest checkout" : "Registered customer"}
+            </p>
           </div>
           <div className="aq-tile">
             <h2 className="mb-3 font-medium text-foreground">Shipping Address</h2>
             <p className="text-sm text-muted-foreground">
-              {a.fullName}<br />
-              {a.line1}{a.line2 ? `, ${a.line2}` : ""}<br />
-              {a.city}{a.state ? `, ${a.state}` : ""} - {a.pincode}<br />
-              {a.country}<br />
+              {a.fullName}
+              <br />
+              {a.line1}
+              {a.line2 ? `, ${a.line2}` : ""}
+              <br />
+              {a.city}
+              {a.state ? `, ${a.state}` : ""} - {a.pincode}
+              <br />
+              {a.country}
+              <br />
               {a.phone}
             </p>
           </div>
@@ -148,8 +174,14 @@ export function OrderDetailPage() {
 function Row({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
   return (
     <div className="flex justify-between">
-      <span className={bold ? "font-semibold text-foreground" : "text-muted-foreground"}>{label}</span>
-      <span className={bold ? "aq-nums text-lg font-bold text-foreground" : "aq-nums text-foreground"}>{value}</span>
+      <span className={bold ? "font-semibold text-foreground" : "text-muted-foreground"}>
+        {label}
+      </span>
+      <span
+        className={bold ? "aq-nums text-lg font-bold text-foreground" : "aq-nums text-foreground"}
+      >
+        {value}
+      </span>
     </div>
   );
 }

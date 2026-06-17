@@ -15,8 +15,8 @@ export function OrderConfirmedPage() {
       </div>
       <h1 className="mt-6 font-display text-4xl text-foreground">Thank you for your order!</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Your order <span className="font-semibold text-gold-dark">{orderNumber}</span> has been placed
-        successfully. A confirmation has been sent to your email.
+        Your order <span className="font-semibold text-gold-dark">{orderNumber}</span> has been
+        placed successfully. A confirmation has been sent to your email.
       </p>
 
       {order && (
@@ -41,16 +41,24 @@ export function OrderConfirmedPage() {
           </div>
           <div className="mt-4 flex justify-between border-t border-border pt-4">
             <span className="font-semibold text-foreground">Total</span>
-            <span className="aq-nums text-lg font-bold text-foreground">{formatCurrency(order.total)}</span>
+            <span className="aq-nums text-lg font-bold text-foreground">
+              {formatCurrency(order.total)}
+            </span>
           </div>
         </div>
       )}
 
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-        <Link to="/shop" className="rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white">
+        <Link
+          to="/shop"
+          className="rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white"
+        >
           Continue Shopping
         </Link>
-        <Link to="/track" className="rounded-full border border-border px-7 py-3 text-sm font-semibold text-foreground">
+        <Link
+          to="/track"
+          className="rounded-full border border-border px-7 py-3 text-sm font-semibold text-foreground"
+        >
           Track Order
         </Link>
       </div>

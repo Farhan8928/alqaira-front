@@ -13,8 +13,13 @@ export function WishlistPage() {
       <div className="mx-auto flex max-w-md flex-col items-center px-4 py-24 text-center">
         <Heart className="h-16 w-16 text-muted-foreground/40" />
         <h1 className="mt-6 font-display text-3xl text-foreground">Your wishlist is empty</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Tap the heart on a product to save it here.</p>
-        <Link to="/shop" className="mt-6 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white">
+        <p className="mt-2 text-sm text-muted-foreground">
+          Tap the heart on a product to save it here.
+        </p>
+        <Link
+          to="/shop"
+          className="mt-6 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white"
+        >
           Explore Products
         </Link>
       </div>
@@ -36,9 +41,13 @@ export function WishlistPage() {
             </button>
             <Link to={`/product/${item.slug}`}>
               <div className="aq-zoom aspect-[4/5] overflow-hidden rounded-xl bg-secondary">
-                {item.image && <img src={item.image} alt={item.name} className="h-full w-full object-cover" />}
+                {item.image && (
+                  <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                )}
               </div>
-              <h3 className="mt-3 line-clamp-1 font-display text-lg text-foreground">{item.name}</h3>
+              <h3 className="mt-3 line-clamp-1 font-display text-lg text-foreground">
+                {item.name}
+              </h3>
               <Price price={item.price} compareAtPrice={item.compareAtPrice} size="sm" />
             </Link>
           </div>

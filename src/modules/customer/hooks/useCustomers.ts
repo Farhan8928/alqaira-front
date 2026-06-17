@@ -3,7 +3,10 @@ import { adminListCustomers, adminGetCustomer } from "../api/customerApi";
 import type { CustomerListQuery } from "../types";
 
 export function useCustomers(query: CustomerListQuery) {
-  return useQuery({ queryKey: ["admin", "customers", query], queryFn: () => adminListCustomers(query) });
+  return useQuery({
+    queryKey: ["admin", "customers", query],
+    queryFn: () => adminListCustomers(query),
+  });
 }
 
 export function useCustomer(id: string | undefined) {

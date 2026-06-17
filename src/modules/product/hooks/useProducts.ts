@@ -35,7 +35,10 @@ export function useProduct(slug: string | undefined) {
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 export function useAdminProducts(query: ProductQuery) {
-  return useQuery({ queryKey: ["admin", "products", query], queryFn: () => adminListProducts(query) });
+  return useQuery({
+    queryKey: ["admin", "products", query],
+    queryFn: () => adminListProducts(query),
+  });
 }
 
 export function useAdminProduct(id: string | undefined) {

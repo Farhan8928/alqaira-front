@@ -52,7 +52,14 @@ export function ReviewsPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <RatingStars value={r.rating} />
-                    <span className={cn("rounded-full px-2 py-0.5 text-xs", r.isApproved ? "bg-emerald-500/15 text-emerald-600" : "bg-amber-500/15 text-amber-600")}>
+                    <span
+                      className={cn(
+                        "rounded-full px-2 py-0.5 text-xs",
+                        r.isApproved
+                          ? "bg-emerald-500/15 text-emerald-600"
+                          : "bg-amber-500/15 text-amber-600",
+                      )}
+                    >
                       {r.isApproved ? "Published" : "Hidden"}
                     </span>
                   </div>
@@ -67,7 +74,11 @@ export function ReviewsPage() {
                     onClick={() => toggle(r.id, !r.isApproved)}
                     className="flex items-center gap-1 rounded-md border border-border px-2.5 py-1.5 text-xs hover:bg-secondary"
                   >
-                    {r.isApproved ? <X className="h-3.5 w-3.5" /> : <Check className="h-3.5 w-3.5" />}
+                    {r.isApproved ? (
+                      <X className="h-3.5 w-3.5" />
+                    ) : (
+                      <Check className="h-3.5 w-3.5" />
+                    )}
                     {r.isApproved ? "Hide" : "Approve"}
                   </button>
                   <button
@@ -85,9 +96,23 @@ export function ReviewsPage() {
 
       {data?.meta && data.meta.totalPages > 1 && (
         <div className="flex items-center justify-center gap-3">
-          <button disabled={!data.meta.hasPrevPage} onClick={() => setPage((p) => p - 1)} className="rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40">Prev</button>
-          <span className="text-sm text-muted-foreground">Page {data.meta.page} of {data.meta.totalPages}</span>
-          <button disabled={!data.meta.hasNextPage} onClick={() => setPage((p) => p + 1)} className="rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40">Next</button>
+          <button
+            disabled={!data.meta.hasPrevPage}
+            onClick={() => setPage((p) => p - 1)}
+            className="rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40"
+          >
+            Prev
+          </button>
+          <span className="text-sm text-muted-foreground">
+            Page {data.meta.page} of {data.meta.totalPages}
+          </span>
+          <button
+            disabled={!data.meta.hasNextPage}
+            onClick={() => setPage((p) => p + 1)}
+            className="rounded-full border border-border px-4 py-2 text-sm disabled:opacity-40"
+          >
+            Next
+          </button>
         </div>
       )}
     </div>

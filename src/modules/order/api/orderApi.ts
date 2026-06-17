@@ -49,7 +49,9 @@ export async function fetchMyOrder(id: string) {
 }
 
 export async function trackOrder(orderNumber: string, email: string) {
-  const res = await http.get<{ data: Order }>(`/orders/track/${orderNumber}`, { params: { email } });
+  const res = await http.get<{ data: Order }>(`/orders/track/${orderNumber}`, {
+    params: { email },
+  });
   return res.data.data;
 }
 
@@ -68,6 +70,9 @@ export async function adminGetOrder(id: string) {
 }
 
 export async function updateOrderStatus(id: string, status: string, note?: string) {
-  const res = await adminHttp.patch<{ data: Order }>(`/admin/orders/${id}/status`, { status, note });
+  const res = await adminHttp.patch<{ data: Order }>(`/admin/orders/${id}/status`, {
+    status,
+    note,
+  });
   return res.data.data;
 }

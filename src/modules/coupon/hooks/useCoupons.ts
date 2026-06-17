@@ -1,14 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  adminListCoupons,
-  createCoupon,
-  updateCoupon,
-  deleteCoupon,
-} from "../api/couponApi";
+import { adminListCoupons, createCoupon, updateCoupon, deleteCoupon } from "../api/couponApi";
 import type { CouponListQuery, CouponPayload } from "../types";
 
 export function useCoupons(query: CouponListQuery) {
-  return useQuery({ queryKey: ["admin", "coupons", query], queryFn: () => adminListCoupons(query) });
+  return useQuery({
+    queryKey: ["admin", "coupons", query],
+    queryFn: () => adminListCoupons(query),
+  });
 }
 
 export function useCreateCoupon() {

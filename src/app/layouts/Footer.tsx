@@ -18,12 +18,24 @@ export function Footer() {
           </p>
           <div className="mt-5 flex gap-3">
             {settings?.instagram && (
-              <a href={settings.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="rounded-full border border-white/20 p-2 hover:border-gold hover:text-gold">
+              <a
+                href={settings.instagram}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="rounded-full border border-white/20 p-2 hover:border-gold hover:text-gold"
+              >
                 <Instagram className="h-4 w-4" />
               </a>
             )}
             {settings?.facebook && (
-              <a href={settings.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" className="rounded-full border border-white/20 p-2 hover:border-gold hover:text-gold">
+              <a
+                href={settings.facebook}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+                className="rounded-full border border-white/20 p-2 hover:border-gold hover:text-gold"
+              >
                 <Facebook className="h-4 w-4" />
               </a>
             )}
@@ -65,7 +77,9 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/40 md:flex-row md:px-6">
-          <p>© {year} {settings?.storeName || "ALQAIRA"}. All rights reserved.</p>
+          <p>
+            © {year} {settings?.storeName || "ALQAIRA"}. All rights reserved.
+          </p>
           <p>Crafted with care · Secure payments · Cash on Delivery available</p>
         </div>
       </div>
@@ -76,7 +90,9 @@ export function Footer() {
 function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div>
-      <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-light">{title}</h4>
+      <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold-light">
+        {title}
+      </h4>
       <div className="flex flex-col gap-2.5">{children}</div>
     </div>
   );

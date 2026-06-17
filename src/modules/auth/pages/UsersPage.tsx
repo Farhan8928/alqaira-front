@@ -12,7 +12,13 @@ export function UsersPage() {
   const createUser = useCreateUser();
   const updateUser = useUpdateUser();
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", password: "", role: "staff" as AdminRole, phone: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "staff" as AdminRole,
+    phone: "",
+  });
   const [err, setErr] = useState<string | null>(null);
 
   async function create() {
@@ -43,7 +49,10 @@ export function UsersPage() {
           <h1 className="font-display text-3xl text-foreground">Staff Users</h1>
           <p className="text-sm text-muted-foreground">Admin-panel accounts</p>
         </div>
-        <button onClick={() => setOpen(true)} className="flex items-center gap-1.5 rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white">
+        <button
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-1.5 rounded-lg bg-navy px-4 py-2 text-sm font-medium text-white"
+        >
           <Plus className="h-4 w-4" /> New User
         </button>
       </div>
@@ -62,7 +71,11 @@ export function UsersPage() {
           </thead>
           <tbody className="divide-y divide-border">
             {isLoading ? (
-              <tr><td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">Loading…</td></tr>
+              <tr>
+                <td colSpan={6} className="px-4 py-12 text-center text-muted-foreground">
+                  Loading…
+                </td>
+              </tr>
             ) : (
               users.map((u) => (
                 <tr key={u.id}>
@@ -71,12 +84,22 @@ export function UsersPage() {
                   <td className="px-4 py-3 capitalize">{u.role}</td>
                   <td className="px-4 py-3 text-muted-foreground">{formatDate(u.createdAt)}</td>
                   <td className="px-4 py-3">
-                    <span className={cn("rounded-full px-2 py-0.5 text-xs", u.isActive ? "bg-emerald-500/15 text-emerald-600" : "bg-secondary text-muted-foreground")}>
+                    <span
+                      className={cn(
+                        "rounded-full px-2 py-0.5 text-xs",
+                        u.isActive
+                          ? "bg-emerald-500/15 text-emerald-600"
+                          : "bg-secondary text-muted-foreground",
+                      )}
+                    >
                       {u.isActive ? "Active" : "Disabled"}
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => toggleActive(u)} className="rounded-md border border-border px-2.5 py-1.5 text-xs hover:bg-secondary">
+                    <button
+                      onClick={() => toggleActive(u)}
+                      className="rounded-md border border-border px-2.5 py-1.5 text-xs hover:bg-secondary"
+                    >
                       {u.isActive ? "Disable" : "Enable"}
                     </button>
                   </td>
@@ -87,13 +110,45 @@ export function UsersPage() {
         </table>
       </div>
 
-      <FormDialog open={open} onOpenChange={setOpen} title="New Staff User" onSubmit={create} isPending={createUser.isPending} error={err}>
+      <FormDialog
+        open={open}
+        onOpenChange={setOpen}
+        title="New Staff User"
+        onSubmit={create}
+        isPending={createUser.isPending}
+        error={err}
+      >
         <div className="space-y-3">
-          <input placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className={inp} />
-          <input placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className={inp} />
-          <input placeholder="Phone (optional)" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={inp} />
-          <input placeholder="Temporary password" type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className={inp} />
-          <select value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value as AdminRole })} className={inp}>
+          <input
+            placeholder="Full name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            className={inp}
+          />
+          <input
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className={inp}
+          />
+          <input
+            placeholder="Phone (optional)"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            className={inp}
+          />
+          <input
+            placeholder="Temporary password"
+            type="password"
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            className={inp}
+          />
+          <select
+            value={form.role}
+            onChange={(e) => setForm({ ...form, role: e.target.value as AdminRole })}
+            className={inp}
+          >
             <option value="staff">Staff (fulfilment)</option>
             <option value="manager">Manager (catalog & orders)</option>
             <option value="admin">Administrator (full access)</option>
@@ -104,4 +159,5 @@ export function UsersPage() {
   );
 }
 
-const inp = "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+const inp =
+  "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";

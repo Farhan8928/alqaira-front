@@ -20,8 +20,13 @@ export function CartPage() {
       <div className="mx-auto flex max-w-md flex-col items-center px-4 py-24 text-center">
         <ShoppingBag className="h-16 w-16 text-muted-foreground/40" />
         <h1 className="mt-6 font-display text-3xl text-foreground">Your bag is empty</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Discover our premium thobes and kurtas.</p>
-        <Link to="/shop" className="mt-6 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white">
+        <p className="mt-2 text-sm text-muted-foreground">
+          Discover our premium thobes and kurtas.
+        </p>
+        <Link
+          to="/shop"
+          className="mt-6 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white"
+        >
           Continue Shopping
         </Link>
       </div>
@@ -36,13 +41,21 @@ export function CartPage() {
         <div className="divide-y divide-border">
           {items.map((item) => (
             <div key={item.variantId} className="flex gap-4 py-5">
-              <Link to={`/product/${item.slug}`} className="h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-secondary">
-                {item.image && <img src={item.image} alt={item.name} className="h-full w-full object-cover" />}
+              <Link
+                to={`/product/${item.slug}`}
+                className="h-28 w-24 shrink-0 overflow-hidden rounded-lg bg-secondary"
+              >
+                {item.image && (
+                  <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                )}
               </Link>
               <div className="flex flex-1 flex-col">
                 <div className="flex justify-between gap-3">
                   <div>
-                    <Link to={`/product/${item.slug}`} className="font-display text-lg text-foreground">
+                    <Link
+                      to={`/product/${item.slug}`}
+                      className="font-display text-lg text-foreground"
+                    >
                       {item.name}
                     </Link>
                     <p className="mt-0.5 text-xs text-muted-foreground">
@@ -61,14 +74,22 @@ export function CartPage() {
                 <div className="mt-auto flex items-center justify-between pt-3">
                   <div className="flex items-center rounded-lg border border-border">
                     <button
-                      onClick={() => dispatch(setQuantity({ variantId: item.variantId, quantity: item.quantity - 1 }))}
+                      onClick={() =>
+                        dispatch(
+                          setQuantity({ variantId: item.variantId, quantity: item.quantity - 1 }),
+                        )
+                      }
                       className="px-3 py-1.5"
                     >
                       −
                     </button>
                     <span className="w-8 text-center text-sm">{item.quantity}</span>
                     <button
-                      onClick={() => dispatch(setQuantity({ variantId: item.variantId, quantity: item.quantity + 1 }))}
+                      onClick={() =>
+                        dispatch(
+                          setQuantity({ variantId: item.variantId, quantity: item.quantity + 1 }),
+                        )
+                      }
                       className="px-3 py-1.5"
                     >
                       +
@@ -116,8 +137,12 @@ export function CartPage() {
 function Row({ label, value, bold }: { label: string; value: string; bold?: boolean }) {
   return (
     <div className="flex justify-between">
-      <span className={bold ? "font-semibold text-foreground" : "text-muted-foreground"}>{label}</span>
-      <span className={bold ? "aq-nums text-lg font-bold text-foreground" : "aq-nums text-foreground"}>
+      <span className={bold ? "font-semibold text-foreground" : "text-muted-foreground"}>
+        {label}
+      </span>
+      <span
+        className={bold ? "aq-nums text-lg font-bold text-foreground" : "aq-nums text-foreground"}
+      >
         {value}
       </span>
     </div>

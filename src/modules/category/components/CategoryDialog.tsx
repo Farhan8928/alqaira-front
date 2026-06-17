@@ -92,27 +92,60 @@ export function CategoryDialog({
           />
         </Field>
         <Field label="Slug">
-          <input value={form.slug} onChange={(e) => setForm((f) => ({ ...f, slug: slugify(e.target.value) }))} className={inp} />
+          <input
+            value={form.slug}
+            onChange={(e) => setForm((f) => ({ ...f, slug: slugify(e.target.value) }))}
+            className={inp}
+          />
         </Field>
         <Field label="Section">
-          <select value={form.section} onChange={(e) => setForm((f) => ({ ...f, section: e.target.value as CategoryPayload["section"] }))} className={inp}>
+          <select
+            value={form.section}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, section: e.target.value as CategoryPayload["section"] }))
+            }
+            className={inp}
+          >
             <option value="men">Men</option>
             <option value="women">Women</option>
             <option value="kids">Kids</option>
           </select>
         </Field>
         <Field label="Image URL">
-          <input value={form.image} onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))} className={inp} placeholder="https://…" />
+          <input
+            value={form.image}
+            onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))}
+            className={inp}
+            placeholder="https://…"
+          />
         </Field>
         <Field label="Description">
-          <textarea value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} rows={2} className={inp} />
+          <textarea
+            value={form.description}
+            onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+            rows={2}
+            className={inp}
+          />
         </Field>
         <Field label="Display Order">
-          <input type="number" value={form.displayOrder} onChange={(e) => setForm((f) => ({ ...f, displayOrder: Number(e.target.value) }))} className={inp} />
+          <input
+            type="number"
+            value={form.displayOrder}
+            onChange={(e) => setForm((f) => ({ ...f, displayOrder: Number(e.target.value) }))}
+            className={inp}
+          />
         </Field>
         <div className="flex gap-6">
-          <Check label="Featured" checked={!!form.isFeatured} onChange={(v) => setForm((f) => ({ ...f, isFeatured: v }))} />
-          <Check label="Active" checked={!!form.isActive} onChange={(v) => setForm((f) => ({ ...f, isActive: v }))} />
+          <Check
+            label="Featured"
+            checked={!!form.isFeatured}
+            onChange={(v) => setForm((f) => ({ ...f, isFeatured: v }))}
+          />
+          <Check
+            label="Active"
+            checked={!!form.isActive}
+            onChange={(v) => setForm((f) => ({ ...f, isActive: v }))}
+          />
         </div>
       </div>
     </FormDialog>
@@ -127,11 +160,21 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
     </div>
   );
 }
-function Check({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
+function Check({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <label className="flex items-center gap-2 text-sm">
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} /> {label}
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} />{" "}
+      {label}
     </label>
   );
 }
-const inp = "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+const inp =
+  "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";

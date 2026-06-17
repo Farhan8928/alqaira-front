@@ -16,9 +16,16 @@ export function ProductCard({ product }: { product: TProductCard }) {
       <div className="relative aq-zoom overflow-hidden rounded-2xl bg-secondary">
         <Link to={`/product/${product.slug}`} className="block aspect-[4/5]">
           {product.image ? (
-            <img src={product.image} alt={product.name} loading="lazy" className="h-full w-full object-cover" />
+            <img
+              src={product.image}
+              alt={product.name}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
           ) : (
-            <div className="flex h-full items-center justify-center text-muted-foreground">No image</div>
+            <div className="flex h-full items-center justify-center text-muted-foreground">
+              No image
+            </div>
           )}
         </Link>
 
@@ -73,7 +80,9 @@ export function ProductCard({ product }: { product: TProductCard }) {
       </div>
 
       <Link to={`/product/${product.slug}`} className="mt-4 block">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{product.categoryName}</p>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          {product.categoryName}
+        </p>
         <h3 className="mt-1 line-clamp-1 font-display text-xl leading-tight text-foreground transition-colors group-hover:text-gold-dark">
           {product.name}
         </h3>

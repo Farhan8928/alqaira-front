@@ -34,10 +34,15 @@ export function TrackOrderPage() {
       <div className="text-center">
         <p className="text-xs uppercase tracking-[0.3em] text-gold-dark">Order Tracking</p>
         <h1 className="mt-2 font-display text-4xl text-foreground">Track your order</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Enter your order number and email to view status.</p>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Enter your order number and email to view status.
+        </p>
       </div>
 
-      <form onSubmit={submit} className="mt-8 grid gap-4 rounded-2xl border border-border bg-card p-6 sm:grid-cols-[1fr_1fr_auto]">
+      <form
+        onSubmit={submit}
+        className="mt-8 grid gap-4 rounded-2xl border border-border bg-card p-6 sm:grid-cols-[1fr_1fr_auto]"
+      >
         <input
           value={orderNumber}
           onChange={(e) => setOrderNumber(e.target.value)}
@@ -96,7 +101,9 @@ export function TrackOrderPage() {
                 ))}
                 <div className="flex justify-between border-t border-border pt-3">
                   <span className="font-semibold text-foreground">Total</span>
-                  <span className="aq-nums font-bold text-foreground">{formatCurrency(order.total)}</span>
+                  <span className="aq-nums font-bold text-foreground">
+                    {formatCurrency(order.total)}
+                  </span>
                 </div>
               </div>
             </div>

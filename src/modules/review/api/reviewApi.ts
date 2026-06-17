@@ -26,7 +26,9 @@ export async function adminListReviews(query: ReviewListQuery) {
 }
 
 export async function setReviewApproval(id: string, isApproved: boolean) {
-  const res = await adminHttp.patch<{ data: Review }>(`/admin/reviews/${id}/approval`, { isApproved });
+  const res = await adminHttp.patch<{ data: Review }>(`/admin/reviews/${id}/approval`, {
+    isApproved,
+  });
   return res.data.data;
 }
 

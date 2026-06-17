@@ -11,7 +11,13 @@ export function AdminSidebar({ open, onClose }: { open: boolean; onClose: () => 
 
   return (
     <>
-      {open && <button aria-label="Close" onClick={onClose} className="fixed inset-0 z-30 bg-black/50 md:hidden" />}
+      {open && (
+        <button
+          aria-label="Close"
+          onClick={onClose}
+          className="fixed inset-0 z-30 bg-black/50 md:hidden"
+        />
+      )}
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-40 flex w-60 flex-col bg-sidebar text-sidebar-foreground transition-transform md:relative md:translate-x-0",

@@ -1,5 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { adminLogin, listUsers, createUser, updateUser, type CreateUserPayload } from "../api/authApi";
+import {
+  adminLogin,
+  listUsers,
+  createUser,
+  updateUser,
+  type CreateUserPayload,
+} from "../api/authApi";
 
 export function useAdminLogin() {
   return useMutation({
@@ -23,8 +29,13 @@ export function useCreateUser() {
 export function useUpdateUser() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, payload }: { id: string; payload: Partial<CreateUserPayload> & { isActive?: boolean } }) =>
-      updateUser(id, payload),
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: string;
+      payload: Partial<CreateUserPayload> & { isActive?: boolean };
+    }) => updateUser(id, payload),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["admin", "users"] }),
   });
 }

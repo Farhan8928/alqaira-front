@@ -68,7 +68,10 @@ export function Header() {
                 <NavLink
                   to={`/shop?section=${s.key}`}
                   className={({ isActive }) =>
-                    cn("nav-link flex items-center gap-1 py-2 uppercase", isActive && "text-foreground")
+                    cn(
+                      "nav-link flex items-center gap-1 py-2 uppercase",
+                      isActive && "text-foreground",
+                    )
                   }
                 >
                   {s.label}
@@ -179,7 +182,11 @@ export function Header() {
                 </div>
               </div>
             ))}
-            <Link to="/track" onClick={() => setMobileOpen(false)} className="py-3 text-sm font-medium">
+            <Link
+              to="/track"
+              onClick={() => setMobileOpen(false)}
+              className="py-3 text-sm font-medium"
+            >
               Track Order
             </Link>
             <Link
