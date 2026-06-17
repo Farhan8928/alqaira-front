@@ -46,7 +46,7 @@ export function AccountPage() {
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[220px_1fr]">
-        <nav className="flex gap-2 lg:flex-col">
+        <nav className="flex flex-wrap gap-2 lg:flex-col lg:flex-nowrap">
           <TabButton active={tab === "orders"} onClick={() => setTab("orders")} icon={Package}>
             Orders
           </TabButton>

@@ -54,7 +54,7 @@ export function HomePage() {
         )}
 
         <div
-          className={`relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-20 md:px-6 lg:py-28 ${
+          className={`relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-14 md:px-6 lg:py-20 ${
             HERO_VIDEO ? "" : "lg:grid-cols-[1.05fr_0.95fr]"
           }`}
         >
@@ -62,18 +62,18 @@ export function HomePage() {
           <div className="reveal max-w-2xl">
             <p className="eyebrow text-gold-light">Premium Thobes &amp; Jubba · Since ALQAIRA</p>
             <h1
-              className="mt-6 font-display font-semibold leading-[0.95]"
-              style={{ fontSize: "clamp(2.75rem, 7vw, 6.5rem)" }}
+              className="mt-5 font-display font-semibold leading-[0.95]"
+              style={{ fontSize: "clamp(2.5rem, 5.5vw, 5rem)" }}
             >
               Heritage tailoring,
               <br />
               <span className="font-accent text-gold-light">reimagined</span> for today.
             </h1>
-            <p className="mt-7 max-w-md text-[15px] leading-relaxed text-white/65">
+            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/65">
               Saudi, Omani, Emirati, Moroccan &amp; designer thobes, kurta pajama and abayas — cut
               from premium fabric for the discerning man and family.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link to="/shop?section=men" className="btn-gold group">
                 Shop Men
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -85,7 +85,7 @@ export function HomePage() {
                 Shop Women
               </Link>
             </div>
-            <div className="mt-12 flex items-center gap-5 text-[11px] uppercase tracking-[0.22em] text-white/45">
+            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.22em] text-white/45">
               <span>Free Shipping ₹4,999+</span>
               <span className="h-1 w-1 rounded-full bg-gold/70" />
               <span>Cash on Delivery</span>
