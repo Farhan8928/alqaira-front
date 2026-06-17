@@ -60,7 +60,7 @@ export function HomePage() {
         >
           {/* Copy */}
           <div className="reveal max-w-2xl">
-            <p className="eyebrow text-gold-light">Premium Thobes &amp; Jubba · Since ALQAIRA</p>
+            <p className="eyebrow text-gold-light">Premium Thobes, Jubba &amp; Abayas</p>
             <h1
               className="mt-5 font-display font-semibold leading-[0.95]"
               style={{ fontSize: "clamp(2.5rem, 5.5vw, 5rem)" }}
