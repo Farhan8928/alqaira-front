@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── ALQAIRA — "Royal Navy & Gold" · 2026 luxury editorial ─────────────────
+   Direction (researched): generous whitespace, bold elegant serif headlines +
+   ledger numerals, editorial layered heroes, calm interfaces (no theatrics),
+   dark sections to make product imagery pop, refined hover micro-interactions.
+─────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root,
+  .light {
+    --background: 38 36% 97%; /* warm ivory */
+    --foreground: 236 42% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 236 42% 12%;
+
+    --primary: 236 48% 14%; /* royal navy */
+    --primary-foreground: 38 36% 97%;
+
+    --secondary: 38 26% 93%;
+    --secondary-foreground: 236 42% 14%;
+
+    --muted: 38 22% 94%;
+    --muted-foreground: 236 10% 44%;
+
+    --accent: 40 54% 50%; /* antique gold */
+    --accent-foreground: 236 48% 10%;
+
+    --destructive: 0 70% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 158 60% 32%;
+    --success-foreground: 0 0% 100%;
+    --warning: 36 90% 46%;
+    --warning-foreground: 236 42% 12%;
+
+    --border: 38 20% 88%;
+    --input: 38 20% 86%;
+    --ring: 40 54% 50%;
+    --radius: 0.5rem;
+
+    --sidebar: 236 48% 11%;
+    --sidebar-foreground: 38 30% 88%;
+    --sidebar-primary: 40 54% 52%;
+    --sidebar-primary-foreground: 236 48% 11%;
+    --sidebar-accent: 236 40% 17%;
+    --sidebar-accent-foreground: 38 30% 92%;
+    --sidebar-border: 236 32% 20%;
+    --sidebar-ring: 40 54% 52%;
+  }
+
+  .dark {
+    --background: 236 42% 7%;
+    --foreground: 38 30% 92%;
+    --card: 236 38% 11%;
+    --card-foreground: 38 30% 92%;
+    --primary: 40 54% 52%;
+    --primary-foreground: 236 48% 9%;
+    --secondary: 236 26% 18%;
+    --secondary-foreground: 38 30% 92%;
+    --muted: 236 24% 16%;
+    --muted-foreground: 38 12% 64%;
+    --accent: 40 54% 52%;
+    --accent-foreground: 236 48% 9%;
+    --destructive: 0 68% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 158 56% 44%;
+    --success-foreground: 236 48% 9%;
+    --warning: 36 90% 55%;
+    --warning-foreground: 236 48% 9%;
+    --border: 236 24% 20%;
+    --input: 236 24% 20%;
+    --ring: 40 54% 52%;
+    --sidebar: 236 48% 8%;
+    --sidebar-foreground: 38 30% 88%;
+    --sidebar-primary: 40 54% 52%;
+    --sidebar-primary-foreground: 236 48% 9%;
+    --sidebar-accent: 236 36% 13%;
+    --sidebar-accent-foreground: 38 30% 92%;
+    --sidebar-border: 236 26% 16%;
+    --sidebar-ring: 40 54% 52%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  html {
+    font-family: Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.25);
+  }
+}
+
+@layer components {
+  /* Serif display for headings & brand. */
+  .font-display {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    letter-spacing: 0.005em;
+    font-weight: 600;
+  }
+  .brand-mark {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    letter-spacing: 0.24em;
+    font-weight: 700;
+  }
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.32em] text-gold-dark;
+  }
+  .text-gold-gradient {
+    background-image: linear-gradient(100deg, #e8d29a 0%, #c9a24b 48%, #9c7a2c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .aq-rule {
+    @apply h-px w-14 bg-gold;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full text-sm font-semibold tracking-wide transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-navy px-7 py-3 text-white hover:bg-navy-800 hover:shadow-lg hover:shadow-navy/20;
+  }
+  .btn-gold {
+    @apply btn bg-gold px-7 py-3 text-navy hover:brightness-105 hover:shadow-lg hover:shadow-gold/30;
+  }
+  .btn-outline {
+    @apply btn border border-navy/25 px-7 py-3 text-navy hover:border-navy hover:bg-navy hover:text-white;
+  }
+
+  /* Cards / tiles */
+  .aq-tile {
+    @apply rounded-2xl border border-border bg-card p-5 shadow-sm;
+  }
+  .aq-glass {
+    @apply border-b border-border/60 bg-background/85 backdrop-blur-xl;
+  }
+  .aq-zoom img {
+    @apply transition-transform duration-[900ms] ease-out;
+  }
+  .aq-zoom:hover img {
+    @apply scale-[1.06];
+  }
+
+  /* Animated gold underline for nav links */
+  .nav-link {
+    @apply relative text-sm font-medium tracking-wide text-foreground/80 transition-colors hover:text-foreground;
+  }
+  .nav-link::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300;
+  }
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+table,
+.aq-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Section reveal on load */
+.aq-page {
+  @apply animate-fade-in;
+}
+.reveal {
+  animation: aq-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes aq-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .reveal {
+    animation: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-muted-foreground/25;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/40;
+}
