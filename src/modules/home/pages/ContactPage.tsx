@@ -17,18 +17,14 @@ export function ContactPage() {
 
       <div className="mt-10 grid gap-8 md:grid-cols-2">
         <div className="space-y-5">
-          <Info icon={Phone} label="Phone" value={settings?.supportPhone || "+971 50 123 4567"} />
+          <Info icon={Phone} label="Phone" value={settings?.supportPhone || "+91 98765 43210"} />
           <Info icon={Mail} label="Email" value={settings?.supportEmail || "info@alqaira.com"} />
           <Info
             icon={MessageCircle}
             label="WhatsApp"
-            value={settings?.whatsapp || "+971 50 123 4567"}
+            value={settings?.whatsapp || "+91 98765 43210"}
           />
-          <Info
-            icon={MapPin}
-            label="Address"
-            value={settings?.addressLine || "Dubai, United Arab Emirates"}
-          />
+          <Info icon={MapPin} label="Address" value={settings?.addressLine || "India"} />
         </div>
 
         <form

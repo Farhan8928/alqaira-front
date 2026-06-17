@@ -13,8 +13,8 @@ export function Footer() {
         <div className="md:col-span-1">
           <Logo tone="light" size={64} />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
-            {settings?.tagline || "Premium Kurta & Jubba"} — heritage craftsmanship in premium
-            fabric, tailored for the discerning gentleman and family.
+            {settings?.tagline || "Premium Thobes, Jubbas & Abayas"} — good-quality clothing in
+            premium fabric for the whole family, delivered across India.
           </p>
           <div className="mt-5 flex gap-3">
             {settings?.instagram && (
@@ -80,7 +80,7 @@ export function Footer() {
           <p>
             © {year} {settings?.storeName || "ALQAIRA"}. All rights reserved.
           </p>
-          <p>Crafted with care · Secure payments · Cash on Delivery available</p>
+          <p>Made with care · Secure payments · Cash on Delivery available</p>
         </div>
       </div>
     </footer>

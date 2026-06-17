@@ -6,29 +6,24 @@ export function AboutPage() {
     <div className="aq-page">
       <section className="bg-navy py-20 text-center text-white">
         <LogoMark size={56} />
-        <h1 className="mt-5 font-display text-5xl">Our Story</h1>
+        <h1 className="mt-5 font-display text-5xl">About Us</h1>
         <p className="mx-auto mt-3 max-w-xl px-4 text-sm text-white/70">
-          ALQAIRA is a celebration of heritage menswear — thobes, jubbas and kurta pajama tailored
-          for the modern man who values quality and timeless style.
+          ALQAIRA sells premium thobes, jubbas, kurta pajama and abayas for men, women and kids —
+          good-quality clothing at a fair price.
         </p>
       </section>
       <section className="mx-auto max-w-3xl space-y-6 px-4 py-16 text-sm leading-relaxed text-muted-foreground md:px-6">
         <p>
-          From the crisp lines of a Saudi thobe to the flowing grace of a Moroccan kaftan, every
-          ALQAIRA garment is crafted from premium fabric and finished with subtle detailing along
-          the placket and cuffs. We blend tradition and innovation to deliver refined simplicity
-          with a timeless presence.
+          We offer many styles — Saudi, Omani, Emirati and Moroccan thobes, kurta pajama and abayas.
+          Each one is made from good-quality fabric with clean stitching and a comfortable fit.
         </p>
         <p>
-          Our collections span Saudi, Omani, Emirati, Moroccan and designer styles for men, elegant
-          abayas for women, and festive pieces for kids — so the whole family can wear ALQAIRA with
-          pride.
+          We have clothing for the whole family — stylish thobes and kurtas for men, abayas for
+          women, and festive wear for kids. Every order is delivered across India with Cash on
+          Delivery and easy returns.
         </p>
         <div className="aq-rule" />
-        <p>
-          Thank you for making us part of your wardrobe. Explore the collection and discover the
-          craft behind every piece.
-        </p>
+        <p>Thank you for shopping with us. Browse our collection and find your favourite style.</p>
         <Link
           to="/shop"
           className="inline-block rounded-full bg-navy px-7 py-3 text-sm font-semibold text-white"

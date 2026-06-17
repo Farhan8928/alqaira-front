@@ -12,11 +12,11 @@ const HERO_VIDEO: string | null = "/hero.mp4";
 /* Heritage notes per regional men's style — authentic detail is the strongest
    premium signal for menswear (competitor benchmark). Keyed by category slug. */
 const REGION_BLURB: Record<string, string> = {
-  "saudi-style-jubba": "The classic Najdi silhouette — crisp collar, clean placket.",
-  "omani-style-jubba": "Collarless dishdasha finished with the signature furakha tassel.",
-  "emirati-style-jubba": "The refined kandura — front pocket, minimal, effortless.",
-  "moroccan-kaftan-jubba": "A flowing kaftan cut with ornate, hand-finished trims.",
-  "designer-modern-jubba": "Contemporary tailoring for the modern gentleman.",
+  "saudi-style-jubba": "Classic Saudi style with a crisp collar and clean front.",
+  "omani-style-jubba": "Collarless Omani dishdasha with the signature tassel.",
+  "emirati-style-jubba": "Simple, clean Emirati kandura with a front pocket.",
+  "moroccan-kaftan-jubba": "Flowing Moroccan kaftan with detailed trims.",
+  "designer-modern-jubba": "Modern, stylish thobes for a fresh look.",
 };
 
 export function HomePage() {
@@ -34,7 +34,7 @@ export function HomePage() {
   return (
     <div className="aq-page">
       {/* ── Hero — editorial split with film grain ──────────────────────────── */}
-      <section className="aq-grain relative flex min-h-[88vh] items-center overflow-hidden bg-navy text-white">
+      <section className="aq-grain relative flex min-h-[82vh] items-center overflow-hidden bg-navy text-white lg:min-h-[88vh]">
         {/* Optional cinematic background video — drop a muted, looped, <5MB clip
            of fabric movement at public/hero.mp4 and set HERO_VIDEO to enable.
            Falls back to the editorial image montage when null. */}
@@ -60,18 +60,20 @@ export function HomePage() {
         >
           {/* Copy */}
           <div className="reveal max-w-2xl">
-            <p className="eyebrow text-gold-light">Premium Thobes, Jubba &amp; Abayas</p>
+            <p className="eyebrow text-gold-light">For Men, Women &amp; Kids · Across India</p>
+            {/* Clear, keyword-rich H1 — names the product in plain English the
+               Indian audience understands instantly (and ranks for those terms). */}
             <h1
-              className="mt-5 font-display font-semibold leading-[0.95]"
-              style={{ fontSize: "clamp(2.5rem, 5.5vw, 5rem)" }}
+              className="mt-5 font-display font-semibold leading-[0.98]"
+              style={{ fontSize: "clamp(2.25rem, 4.4vw, 4.25rem)" }}
             >
-              Heritage tailoring,
+              Premium Thobes, Jubbas
               <br />
-              <span className="font-accent text-gold-light">reimagined</span> for today.
+              &amp; <span className="font-accent text-gold-light">Abayas</span>.
             </h1>
             <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/65">
-              Saudi, Omani, Emirati, Moroccan &amp; designer thobes, kurta pajama and abayas — cut
-              from premium fabric for the discerning man and family.
+              Saudi, Omani, Emirati, Moroccan and designer thobes, kurta pajama and abayas — made
+              from premium fabric for the whole family.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <Link to="/shop?section=men" className="btn-gold group">
@@ -140,7 +142,7 @@ export function HomePage() {
       {/* ── Collections ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-6">
         <Reveal>
-          <Heading eyebrow="The Wardrobe" title="Shop by Style" />
+          <Heading eyebrow="Categories" title="Shop by Style" />
         </Reveal>
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {categories.map((c, i) => (
@@ -181,8 +183,8 @@ export function HomePage() {
         <section className="mx-auto max-w-7xl px-4 py-20 md:px-6">
           <Reveal>
             <Heading
-              eyebrow="For Him · By Region"
-              title="Thobes rooted in heritage"
+              eyebrow="For Men · By Region"
+              title="Men's Thobes by Style"
               link="/shop?section=men"
             />
           </Reveal>
@@ -220,7 +222,7 @@ export function HomePage() {
       {/* ── Featured ─────────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 md:px-6">
         <Reveal>
-          <Heading eyebrow="Hand-picked" title="Featured Pieces" link="/shop" />
+          <Heading eyebrow="Top Picks" title="Featured Products" link="/shop" />
         </Reveal>
         <div className="mt-12">
           <ProductGrid products={featured} loading={lf} />
@@ -233,19 +235,17 @@ export function HomePage() {
           <div className="reveal">
             <div className="aq-rule" />
             <h2 className="mt-6 font-display text-4xl leading-[1.05] md:text-6xl">
-              The craft behind <span className="font-accent text-gold-light">every</span> ALQAIRA
-              piece
+              Made with <span className="font-accent text-gold-light">care</span>, in premium fabric
             </h2>
             <p className="mt-7 max-w-md text-[15px] leading-relaxed text-white/65">
-              From the crisp Najdi placket to the flowing Moroccan kaftan, each garment is tailored
-              with subtle detailing along the placket and cuffs — refined simplicity with a timeless
-              presence.
+              Every thobe, jubba and abaya is made from good-quality fabric with clean stitching and
+              a comfortable fit. Simple, elegant clothing that looks great and lasts long.
             </p>
             <Link
               to="/about"
               className="mt-9 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold hover:gap-3"
             >
-              Discover our story <ArrowRight className="h-4 w-4" />
+              About Us <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -266,7 +266,7 @@ export function HomePage() {
       {/* ── New arrivals ───────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 md:px-6">
         <Reveal>
-          <Heading eyebrow="Fresh off the rail" title="New Arrivals" link="/shop?sort=newest" />
+          <Heading eyebrow="Just Added" title="New Arrivals" link="/shop?sort=newest" />
         </Reveal>
         <div className="mt-12">
           <ProductGrid products={arrivals} loading={la} />
@@ -276,10 +276,10 @@ export function HomePage() {
       {/* ── Newsletter ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
         <Reveal className="relative overflow-hidden rounded-sm border border-gold/25 bg-secondary/60 px-6 py-16 text-center">
-          <p className="eyebrow">The ALQAIRA List</p>
+          <p className="eyebrow">Newsletter</p>
           <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl leading-[1.05] text-foreground md:text-5xl">
-            First look at new arrivals &amp;{" "}
-            <span className="font-accent text-gold-dark">private</span> offers
+            Be the first to know about new arrivals &amp;{" "}
+            <span className="font-accent text-gold-dark">special</span> offers
           </h2>
           <form
             onSubmit={(e) => e.preventDefault()}

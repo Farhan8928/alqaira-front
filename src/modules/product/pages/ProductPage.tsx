@@ -233,19 +233,19 @@ export function ProductPage() {
               </Detail>
             )}
 
-            {/* Material & Craft — fabric storytelling, the primary premium signal */}
+            {/* Fabric & Quality — fabric info is the main premium signal */}
             {product.fabric && (
               <div className="overflow-hidden rounded-sm border border-gold/20 bg-secondary/50">
                 <div className="border-b border-gold/15 bg-navy px-5 py-3">
-                  <p className="eyebrow text-gold-light">Material &amp; Craft</p>
+                  <p className="eyebrow text-gold-light">Fabric &amp; Quality</p>
                 </div>
                 <div className="px-5 py-4">
                   <p className="font-display text-2xl leading-tight text-foreground">
                     {product.fabric}
                   </p>
                   <p className="mt-1.5 leading-relaxed text-muted-foreground">
-                    Cut and finished with subtle detailing along the placket and cuffs — refined
-                    simplicity made to last and to wear with ease.
+                    Made from good-quality fabric with clean stitching and a comfortable fit — easy
+                    to wear and made to last.
                   </p>
                 </div>
               </div>
