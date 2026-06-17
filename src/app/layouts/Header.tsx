@@ -45,97 +45,99 @@ export function Header() {
   const catsBySection = (s: Section) => categories.filter((c) => c.section === s);
 
   return (
-    <header className="sticky top-0 z-40 aq-glass">
-      <div className="mx-auto flex h-20 max-w-7xl items-center gap-4 px-4 md:px-6">
-        <button className="md:hidden" aria-label="Open menu" onClick={() => setMobileOpen(true)}>
-          <Menu className="h-6 w-6 text-foreground" />
-        </button>
-
-        <Link to="/" className="shrink-0 transition-opacity hover:opacity-90">
-          <Logo size={52} />
-        </Link>
-
-        <nav className="ml-8 hidden flex-1 items-center gap-8 md:flex">
-          {SECTIONS.map((s) => {
-            const cats = catsBySection(s.key);
-            return (
-              <div
-                key={s.key}
-                className="group relative"
-                onMouseEnter={() => setOpenSection(s.key)}
-                onMouseLeave={() => setOpenSection(null)}
-              >
-                <NavLink
-                  to={`/shop?section=${s.key}`}
-                  className={({ isActive }) =>
-                    cn(
-                      "nav-link flex items-center gap-1 py-2 uppercase",
-                      isActive && "text-foreground",
-                    )
-                  }
-                >
-                  {s.label}
-                  {cats.length > 0 && <ChevronDown className="h-3.5 w-3.5" />}
-                </NavLink>
-                {cats.length > 0 && openSection === s.key && (
-                  <div className="absolute left-0 top-full z-50 w-64 animate-fade-in rounded-xl border border-border bg-card p-2 shadow-2xl">
-                    {cats.map((c) => (
-                      <Link
-                        key={c.id}
-                        to={`/shop?section=${s.key}&category=${c.slug}`}
-                        className="block rounded-lg px-3 py-2 text-sm text-foreground hover:bg-secondary"
-                      >
-                        {c.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-          <NavLink to="/track" className="nav-link py-2 uppercase">
-            Track Order
-          </NavLink>
-        </nav>
-
-        <div className="ml-auto flex items-center gap-1.5 md:gap-3">
-          <button aria-label="Search" onClick={() => setSearchOpen((o) => !o)} className="p-2">
-            <Search className="h-5 w-5 text-foreground" />
+    <>
+      <header className="sticky top-0 z-40 aq-glass">
+        <div className="mx-auto flex h-20 max-w-7xl items-center gap-4 px-4 md:px-6">
+          <button className="md:hidden" aria-label="Open menu" onClick={() => setMobileOpen(true)}>
+            <Menu className="h-6 w-6 text-foreground" />
           </button>
-          <Link to="/wishlist" aria-label="Wishlist" className="relative p-2">
-            <Heart className="h-5 w-5 text-foreground" />
-            {wishlistCount > 0 && <Badge>{wishlistCount}</Badge>}
-          </Link>
-          <Link to={customer ? "/account" : "/login"} aria-label="Account" className="p-2">
-            <User className="h-5 w-5 text-foreground" />
-          </Link>
-          <Link to="/cart" aria-label="Cart" className="relative p-2">
-            <ShoppingBag className="h-5 w-5 text-foreground" />
-            {cartCount > 0 && <Badge>{cartCount}</Badge>}
-          </Link>
-        </div>
-      </div>
 
-      {searchOpen && (
-        <div className="border-t border-border bg-background">
-          <form
-            onSubmit={submitSearch}
-            className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 md:px-6"
-          >
-            <Search className="h-5 w-5 text-muted-foreground" />
-            <input
-              autoFocus
-              value={term}
-              onChange={(e) => setTerm(e.target.value)}
-              placeholder="Search thobes, kurtas, abayas…"
-              className="flex-1 bg-transparent text-sm outline-none"
-            />
-            <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search">
-              <X className="h-5 w-5 text-muted-foreground" />
+          <Link to="/" className="shrink-0 transition-opacity hover:opacity-90">
+            <Logo size={52} />
+          </Link>
+
+          <nav className="ml-8 hidden flex-1 items-center gap-8 md:flex">
+            {SECTIONS.map((s) => {
+              const cats = catsBySection(s.key);
+              return (
+                <div
+                  key={s.key}
+                  className="group relative"
+                  onMouseEnter={() => setOpenSection(s.key)}
+                  onMouseLeave={() => setOpenSection(null)}
+                >
+                  <NavLink
+                    to={`/shop?section=${s.key}`}
+                    className={({ isActive }) =>
+                      cn(
+                        "nav-link flex items-center gap-1 py-2 uppercase",
+                        isActive && "text-foreground",
+                      )
+                    }
+                  >
+                    {s.label}
+                    {cats.length > 0 && <ChevronDown className="h-3.5 w-3.5" />}
+                  </NavLink>
+                  {cats.length > 0 && openSection === s.key && (
+                    <div className="absolute left-0 top-full z-50 w-64 animate-fade-in rounded-xl border border-border bg-card p-2 shadow-2xl">
+                      {cats.map((c) => (
+                        <Link
+                          key={c.id}
+                          to={`/shop?section=${s.key}&category=${c.slug}`}
+                          className="block rounded-lg px-3 py-2 text-sm text-foreground hover:bg-secondary"
+                        >
+                          {c.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            <NavLink to="/track" className="nav-link py-2 uppercase">
+              Track Order
+            </NavLink>
+          </nav>
+
+          <div className="ml-auto flex items-center gap-1.5 md:gap-3">
+            <button aria-label="Search" onClick={() => setSearchOpen((o) => !o)} className="p-2">
+              <Search className="h-5 w-5 text-foreground" />
             </button>
-          </form>
+            <Link to="/wishlist" aria-label="Wishlist" className="relative p-2">
+              <Heart className="h-5 w-5 text-foreground" />
+              {wishlistCount > 0 && <Badge>{wishlistCount}</Badge>}
+            </Link>
+            <Link to={customer ? "/account" : "/login"} aria-label="Account" className="p-2">
+              <User className="h-5 w-5 text-foreground" />
+            </Link>
+            <Link to="/cart" aria-label="Cart" className="relative p-2">
+              <ShoppingBag className="h-5 w-5 text-foreground" />
+              {cartCount > 0 && <Badge>{cartCount}</Badge>}
+            </Link>
+          </div>
         </div>
-      )}
+
+        {searchOpen && (
+          <div className="border-t border-border bg-background">
+            <form
+              onSubmit={submitSearch}
+              className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 md:px-6"
+            >
+              <Search className="h-5 w-5 text-muted-foreground" />
+              <input
+                autoFocus
+                value={term}
+                onChange={(e) => setTerm(e.target.value)}
+                placeholder="Search thobes, kurtas, abayas…"
+                className="flex-1 bg-transparent text-sm outline-none"
+              />
+              <button type="button" onClick={() => setSearchOpen(false)} aria-label="Close search">
+                <X className="h-5 w-5 text-muted-foreground" />
+              </button>
+            </form>
+          </div>
+        )}
+      </header>
 
       {mobileOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
@@ -199,7 +201,7 @@ export function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
 
