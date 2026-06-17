@@ -73,8 +73,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        serif: ['"Cormorant Garamond"', "Georgia", "serif"],
+        sans: ['"Hanken Grotesk"', "system-ui", "sans-serif"],
+        serif: ['"Fraunces"', "Georgia", "serif"],
       },
       keyframes: {
         "fade-in": {

@@ -207,12 +207,28 @@ export function ProductPage() {
           </div>
 
           {/* Details */}
-          <div className="mt-6 space-y-4 text-sm">
+          <div className="mt-6 space-y-5 text-sm">
             {product.description && (
               <Detail title="Description"><p className="leading-relaxed text-muted-foreground">{product.description}</p></Detail>
             )}
+
+            {/* Material & Craft — fabric storytelling, the primary premium signal */}
+            {product.fabric && (
+              <div className="overflow-hidden rounded-sm border border-gold/20 bg-secondary/50">
+                <div className="border-b border-gold/15 bg-navy px-5 py-3">
+                  <p className="eyebrow text-gold-light">Material &amp; Craft</p>
+                </div>
+                <div className="px-5 py-4">
+                  <p className="font-display text-2xl leading-tight text-foreground">{product.fabric}</p>
+                  <p className="mt-1.5 leading-relaxed text-muted-foreground">
+                    Cut and finished with subtle detailing along the placket and cuffs — refined
+                    simplicity made to last and to wear with ease.
+                  </p>
+                </div>
+              </div>
+            )}
+
             <div className="grid grid-cols-2 gap-3">
-              {product.fabric && <Spec label="Fabric" value={product.fabric} />}
               {product.color && <Spec label="Colour" value={product.color} />}
               {product.careInstructions && <Spec label="Care" value={product.careInstructions} />}
               <Spec label="Price" value={formatCurrency(product.price)} />

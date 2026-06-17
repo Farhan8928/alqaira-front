@@ -1,39 +1,45 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, Truck, ShieldCheck, RefreshCw, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { ProductGrid } from "@/modules/product/components/ProductGrid";
 import { useFeaturedProducts, useNewArrivals } from "@/modules/product/hooks/useProducts";
-import { useFeaturedCategories } from "@/modules/category/hooks/useCategories";
+import { useCategories, useFeaturedCategories } from "@/modules/category/hooks/useCategories";
+import { Reveal } from "@/shared/components/Reveal";
+
+/* Heritage notes per regional men's style — authentic detail is the strongest
+   premium signal for menswear (competitor benchmark). Keyed by category slug. */
+const REGION_BLURB: Record<string, string> = {
+  "saudi-style-jubba": "The classic Najdi silhouette — crisp collar, clean placket.",
+  "omani-style-jubba": "Collarless dishdasha finished with the signature furakha tassel.",
+  "emirati-style-jubba": "The refined kandura — front pocket, minimal, effortless.",
+  "moroccan-kaftan-jubba": "A flowing kaftan cut with ornate, hand-finished trims.",
+  "designer-modern-jubba": "Contemporary tailoring for the modern gentleman.",
+};
 
 export function HomePage() {
   const { data: featured = [], isLoading: lf } = useFeaturedProducts();
   const { data: arrivals = [], isLoading: la } = useNewArrivals();
   const { data: categories = [] } = useFeaturedCategories();
+  const { data: menCategories = [] } = useCategories("men");
 
   const heroImages = featured.map((p) => p.image).filter(Boolean).slice(0, 3) as string[];
+  const regions = menCategories.filter((c) => REGION_BLURB[c.slug]);
 
   return (
     <div className="aq-page">
-      {/* ── Hero — editorial split ─────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-navy text-white">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.5]"
-          style={{
-            background:
-              "radial-gradient(60% 70% at 85% 20%, rgba(201,162,75,0.16) 0, transparent 60%), radial-gradient(50% 60% at 10% 90%, rgba(201,162,75,0.10) 0, transparent 60%)",
-          }}
-        />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:px-6 lg:grid-cols-2 lg:py-24">
+      {/* ── Hero — editorial split with film grain ──────────────────────────── */}
+      <section className="aq-grain relative overflow-hidden bg-navy text-white">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 md:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
           {/* Copy */}
           <div className="reveal">
-            <p className="eyebrow text-gold-light">Premium Kurta &amp; Jubba · Est. ALQAIRA</p>
-            <h1 className="mt-5 font-display text-5xl leading-[1.04] md:text-7xl">
+            <p className="eyebrow text-gold-light">Premium Thobes &amp; Jubba · Since ALQAIRA</p>
+            <h1 className="mt-6 font-display text-[2.75rem] font-semibold leading-[0.98] md:text-[5.25rem]">
               Heritage tailoring,
               <br />
-              <span className="text-gold-gradient">reimagined for today.</span>
+              <span className="font-accent text-gold-light">reimagined</span> for today.
             </h1>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/65">
+            <p className="mt-7 max-w-md text-[15px] leading-relaxed text-white/65">
               Saudi, Omani, Emirati, Moroccan &amp; designer thobes, kurta pajama and abayas —
-              crafted in premium fabric for the discerning man and family.
+              cut from premium fabric for the discerning man and family.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link to="/shop?section=men" className="btn-gold group">
@@ -47,54 +53,59 @@ export function HomePage() {
                 Shop Women
               </Link>
             </div>
-            <div className="mt-10 flex items-center gap-6 text-xs uppercase tracking-widest text-white/40">
+            <div className="mt-12 flex items-center gap-5 text-[11px] uppercase tracking-[0.22em] text-white/45">
               <span>Free Shipping ₹4,999+</span>
-              <span className="h-3 w-px bg-white/20" />
-              <span>COD Available</span>
-              <span className="h-3 w-px bg-white/20" />
+              <span className="h-1 w-1 rounded-full bg-gold/70" />
+              <span>Cash on Delivery</span>
+              <span className="h-1 w-1 rounded-full bg-gold/70" />
               <span>Easy Returns</span>
             </div>
           </div>
 
-          {/* Image montage */}
-          <div className="reveal relative hidden h-[480px] lg:block">
+          {/* Image montage — varied radii for an editorial, hand-set feel */}
+          <div className="reveal relative hidden h-[500px] lg:block">
             {heroImages[0] && (
-              <div className="absolute right-0 top-0 h-[380px] w-[58%] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10">
+              <div className="absolute right-0 top-0 h-[400px] w-[58%] overflow-hidden rounded-sm shadow-2xl ring-1 ring-white/10">
                 <img src={heroImages[0]} alt="" className="h-full w-full object-cover" />
               </div>
             )}
             {heroImages[1] && (
-              <div className="absolute bottom-0 left-0 h-[300px] w-[46%] overflow-hidden rounded-2xl shadow-2xl ring-1 ring-white/10">
+              <div className="absolute bottom-0 left-0 h-[320px] w-[46%] overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-white/10">
                 <img src={heroImages[1]} alt="" className="h-full w-full object-cover" />
               </div>
             )}
-            <div className="absolute bottom-8 right-6 z-10 rounded-xl bg-gold px-5 py-4 text-navy shadow-xl">
-              <p className="font-display text-3xl leading-none">7</p>
-              <p className="text-[10px] font-semibold uppercase tracking-widest">Signature Styles</p>
+            <div className="absolute bottom-10 right-8 z-10 rounded-sm border border-gold/40 bg-navy/80 px-5 py-4 text-gold-light backdrop-blur">
+              <p className="font-display text-4xl leading-none">7</p>
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.24em]">Signature Styles</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Trust strip ─────────────────────────────────────────────────────── */}
+      {/* ── Trust strip — typographic, not icon-card ────────────────────────── */}
       <section className="border-b border-border bg-card">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 md:grid-cols-4 md:px-6">
-          <Badge icon={Truck} title="Fast Delivery" desc="Pan-India shipping" />
-          <Badge icon={ShieldCheck} title="Secure Payments" desc="Razorpay & COD" />
-          <Badge icon={RefreshCw} title="Easy Returns" desc="7-day policy" />
-          <Badge icon={Sparkles} title="Premium Fabric" desc="Crafted to last" />
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 py-6 text-center md:px-6">
+          <Pill label="Pan-India Delivery" />
+          <Dot />
+          <Pill label="Secure Payments · Razorpay & COD" />
+          <Dot />
+          <Pill label="7-Day Easy Returns" />
+          <Dot />
+          <Pill label="Crafted in Premium Fabric" />
         </div>
       </section>
 
       {/* ── Collections ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-20 md:px-6">
-        <Heading eyebrow="The Collections" title="Shop by Style" />
+        <Reveal>
+          <Heading eyebrow="The Wardrobe" title="Shop by Style" />
+        </Reveal>
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {categories.map((c, i) => (
             <Link
               key={c.id}
               to={`/shop?section=${c.section}&category=${c.slug}`}
-              className={`group relative overflow-hidden rounded-2xl bg-secondary aq-zoom ${
+              className={`group relative overflow-hidden rounded-sm bg-secondary aq-zoom ${
                 i === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-auto" : "aspect-[3/4]"
               }`}
             >
@@ -114,41 +125,79 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ── Heritage by region — men's regional authenticity ───────────────── */}
+      {regions.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-20 md:px-6">
+          <Reveal>
+            <Heading
+              eyebrow="For Him · By Region"
+              title="Thobes rooted in heritage"
+              link="/shop?section=men"
+            />
+          </Reveal>
+          <Reveal className="mt-12 flex snap-x gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-5">
+            {regions.map((c) => (
+              <Link
+                key={c.id}
+                to={`/shop?section=men&category=${c.slug}`}
+                className="group relative aspect-[3/4] w-[72%] shrink-0 snap-start overflow-hidden rounded-sm bg-secondary aq-zoom md:w-auto"
+              >
+                {c.image && (
+                  <img src={c.image} alt={c.name} loading="lazy" className="h-full w-full object-cover" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <p className="text-[10px] uppercase tracking-[0.3em] text-gold-light">
+                    {c.name.replace(/\s*(Style\s*)?Jubba$/i, "").trim() || c.name}
+                  </p>
+                  <h3 className="mt-1 font-display text-xl leading-tight text-white">{c.name}</h3>
+                  <p className="mt-2 text-[12px] leading-relaxed text-white/65">{REGION_BLURB[c.slug]}</p>
+                </div>
+              </Link>
+            ))}
+          </Reveal>
+        </section>
+      )}
+
       {/* ── Featured ─────────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 md:px-6">
-        <Heading eyebrow="Curated Selection" title="Featured Pieces" link="/shop" />
+        <Reveal>
+          <Heading eyebrow="Hand-picked" title="Featured Pieces" link="/shop" />
+        </Reveal>
         <div className="mt-12">
           <ProductGrid products={featured} loading={lf} />
         </div>
       </section>
 
       {/* ── Editorial band ──────────────────────────────────────────────────── */}
-      <section className="my-24 bg-navy text-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 md:px-6 lg:grid-cols-2">
+      <section className="aq-grain relative my-24 overflow-hidden bg-navy text-white">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 md:px-6 lg:grid-cols-2">
           <div className="reveal">
             <div className="aq-rule" />
-            <h2 className="mt-6 font-display text-4xl leading-tight md:text-6xl">
-              The craft behind every ALQAIRA piece
+            <h2 className="mt-6 font-display text-4xl leading-[1.05] md:text-6xl">
+              The craft behind <span className="font-accent text-gold-light">every</span> ALQAIRA piece
             </h2>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-white/65">
+            <p className="mt-7 max-w-md text-[15px] leading-relaxed text-white/65">
               From the crisp Najdi placket to the flowing Moroccan kaftan, each garment is tailored
               with subtle detailing along the placket and cuffs — refined simplicity with a timeless
               presence.
             </p>
-            <Link to="/about" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-gold hover:gap-3">
+            <Link to="/about" className="mt-9 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-gold hover:gap-3">
               Discover our story <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <img src={featured[2]?.image || "/products/men-08.jpg"} alt="" className="aspect-[3/4] rounded-2xl object-cover ring-1 ring-white/10" />
-            <img src={featured[3]?.image || "/products/women-02.jpg"} alt="" className="mt-10 aspect-[3/4] rounded-2xl object-cover ring-1 ring-white/10" />
+            <img src={featured[2]?.image || "/products/men-08.jpg"} alt="" className="aspect-[3/4] rounded-sm object-cover ring-1 ring-white/10" />
+            <img src={featured[3]?.image || "/products/women-02.jpg"} alt="" className="mt-10 aspect-[3/4] rounded-[2rem] object-cover ring-1 ring-white/10" />
           </div>
         </div>
       </section>
 
       {/* ── New arrivals ───────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 md:px-6">
-        <Heading eyebrow="Just Arrived" title="New Arrivals" link="/shop?sort=newest" />
+        <Reveal>
+          <Heading eyebrow="Fresh off the rail" title="New Arrivals" link="/shop?sort=newest" />
+        </Reveal>
         <div className="mt-12">
           <ProductGrid products={arrivals} loading={la} />
         </div>
@@ -156,10 +205,10 @@ export function HomePage() {
 
       {/* ── Newsletter ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
-        <div className="relative overflow-hidden rounded-3xl border border-gold/20 bg-secondary/60 px-6 py-16 text-center">
-          <p className="eyebrow">Join the ALQAIRA circle</p>
-          <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl text-foreground md:text-5xl">
-            Be first to new arrivals &amp; private offers
+        <Reveal className="relative overflow-hidden rounded-sm border border-gold/25 bg-secondary/60 px-6 py-16 text-center">
+          <p className="eyebrow">The ALQAIRA List</p>
+          <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl leading-[1.05] text-foreground md:text-5xl">
+            First look at new arrivals &amp; <span className="font-accent text-gold-dark">private</span> offers
           </h2>
           <form
             onSubmit={(e) => e.preventDefault()}
@@ -173,7 +222,7 @@ export function HomePage() {
             />
             <button type="submit" className="btn-primary">Subscribe</button>
           </form>
-        </div>
+        </Reveal>
       </section>
     </div>
   );
@@ -188,7 +237,7 @@ function Heading({ eyebrow, title, link }: { eyebrow: string; title: string; lin
         <div className="mt-4 aq-rule" />
       </div>
       {link && (
-        <Link to={link} className="hidden shrink-0 items-center gap-1.5 text-sm font-medium uppercase tracking-widest text-gold-dark hover:gap-2.5 sm:flex">
+        <Link to={link} className="hidden shrink-0 items-center gap-1.5 text-sm font-medium uppercase tracking-[0.18em] text-gold-dark hover:gap-2.5 sm:flex">
           View all <ArrowRight className="h-4 w-4" />
         </Link>
       )}
@@ -196,24 +245,14 @@ function Heading({ eyebrow, title, link }: { eyebrow: string; title: string; lin
   );
 }
 
-function Badge({
-  icon: Icon,
-  title,
-  desc,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  desc: string;
-}) {
+function Pill({ label }: { label: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-gold/12 text-gold-dark">
-        <Icon className="h-5 w-5" />
-      </span>
-      <div>
-        <p className="text-sm font-semibold text-foreground">{title}</p>
-        <p className="text-xs text-muted-foreground">{desc}</p>
-      </div>
-    </div>
+    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">
+      {label}
+    </span>
   );
+}
+
+function Dot() {
+  return <span className="hidden h-1 w-1 rounded-full bg-gold/60 sm:inline-block" />;
 }

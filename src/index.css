@@ -3,9 +3,11 @@
 @tailwind utilities;
 
 /* ─── ALQAIRA — "Royal Navy & Gold" · 2026 luxury editorial ─────────────────
-   Direction (researched): generous whitespace, bold elegant serif headlines +
-   ledger numerals, editorial layered heroes, calm interfaces (no theatrics),
-   dark sections to make product imagery pop, refined hover micro-interactions.
+   Type system: Fraunces (characterful editorial serif, optical-sized) for
+   display + Hanken Grotesk for UI/body — a bespoke pairing chosen to read as
+   tailored couture rather than a generic template. Direction: generous
+   whitespace, high type contrast, layered editorial heroes with subtle film
+   grain (texture over flatness), calm interfaces, refined micro-interactions.
 ─────────────────────────────────────────────────────────────────────────── */
 
 @layer base {
@@ -89,7 +91,8 @@
     @apply bg-background text-foreground antialiased;
   }
   html {
-    font-family: Inter, system-ui, sans-serif;
+    font-family: "Hanken Grotesk", system-ui, sans-serif;
+    font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
   }
   ::selection {
@@ -98,19 +101,26 @@
 }
 
 @layer components {
-  /* Serif display for headings & brand. */
+  /* Serif display for headings & brand — Fraunces, optical-sized. */
   .font-display {
-    font-family: "Cormorant Garamond", Georgia, serif;
-    letter-spacing: 0.005em;
+    font-family: "Fraunces", Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.015em;
     font-weight: 600;
   }
   .brand-mark {
-    font-family: "Cormorant Garamond", Georgia, serif;
-    letter-spacing: 0.24em;
-    font-weight: 700;
+    font-family: "Fraunces", Georgia, serif;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+  }
+  /* Italic accent for hero & headline highlight words — reads bespoke. */
+  .font-accent {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
   }
   .eyebrow {
-    @apply text-[11px] font-semibold uppercase tracking-[0.32em] text-gold-dark;
+    @apply text-[11px] font-semibold uppercase tracking-[0.34em] text-gold-dark;
   }
   .text-gold-gradient {
     background-image: linear-gradient(100deg, #e8d29a 0%, #c9a24b 48%, #9c7a2c 100%);
@@ -120,6 +130,18 @@
   }
   .aq-rule {
     @apply h-px w-14 bg-gold;
+  }
+
+  /* Subtle film grain — layered over dark sections to kill the flat,
+     "AI-rendered" look and add tactile warmth. */
+  .aq-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   /* Buttons */
@@ -182,6 +204,20 @@ table,
 .reveal {
   animation: aq-reveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+
+/* Scroll-triggered reveal (editorial storytelling) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: none;
+}
 @keyframes aq-reveal {
   from {
     opacity: 0;
@@ -197,6 +233,11 @@ table,
   .animate-marquee,
   .reveal {
     animation: none;
+  }
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
