@@ -314,8 +314,9 @@ export function chartFor(section?: string, categoryName?: string): Chart | null 
 export function recommend(chart: Chart, value: number): Row | null {
   if (!value || Number.isNaN(value)) return null;
   if (chart.finder.by === "chest") {
-    const target = value + 2; // comfort ease
-    return chart.rows.find((r) => Number(r.chest) >= target) ?? chart.rows[chart.rows.length - 1];
+    // Charts are "as per body dimension": match the body chest directly to the
+    // smallest size whose chest is >= the measurement (no extra ease added).
+    return chart.rows.find((r) => Number(r.chest) >= value) ?? chart.rows[chart.rows.length - 1];
   }
   // by age — nearest _age
   let best: Row | null = null;
