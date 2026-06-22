@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { Heart, ShoppingBag, Truck, RefreshCw, ShieldCheck, Check } from "lucide-react";
+import { Heart, ShoppingBag, Truck, RefreshCw, ShieldCheck, Check, Ruler } from "lucide-react";
+import { SizeGuide } from "@/shared/components/SizeGuide";
+import { chartFor } from "@/shared/data/sizeCharts";
 import { useProduct } from "../hooks/useProducts";
 import { ProductGrid } from "../components/ProductGrid";
 import { Price } from "@/shared/components/Price";
@@ -23,6 +25,7 @@ export function ProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [variant, setVariant] = useState<Variant | null>(null);
   const [qty, setQty] = useState(1);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
   const wished = useAppSelector((s) =>
     data ? s.wishlist.items.some((i) => i.id === data.product.id) : false,
@@ -135,12 +138,19 @@ export function ProductPage() {
           <div className="mt-7">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium text-foreground">Select Size</span>
-              {variant && variant.stock <= 5 && (
-                <span className="text-xs font-medium text-destructive">
-                  Only {variant.stock} left
-                </span>
+              {chartFor(product.section, product.categoryName) && (
+                <button
+                  type="button"
+                  onClick={() => setSizeGuideOpen(true)}
+                  className="flex items-center gap-1.5 text-xs font-semibold text-gold-dark hover:text-navy"
+                >
+                  <Ruler className="h-3.5 w-3.5" /> Find my size
+                </button>
               )}
             </div>
+            {variant && variant.stock <= 5 && (
+              <p className="mb-2 text-xs font-medium text-destructive">Only {variant.stock} left</p>
+            )}
             <div className="flex flex-wrap gap-2">
               {product.variants.map((v) => {
                 const disabled = v.stock <= 0;
@@ -272,6 +282,13 @@ export function ProductPage() {
           </div>
         </section>
       )}
+
+      <SizeGuide
+        open={sizeGuideOpen}
+        onClose={() => setSizeGuideOpen(false)}
+        section={product.section}
+        categoryName={product.categoryName}
+      />
     </div>
   );
 }

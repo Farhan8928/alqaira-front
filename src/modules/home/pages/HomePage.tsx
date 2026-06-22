@@ -250,12 +250,12 @@ export function HomePage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src={featured[2]?.image || "/products/men-08.jpg"}
+              src={featured[2]?.image || "/products/ai/saudi-2.jpg"}
               alt=""
               className="aspect-[3/4] rounded-sm object-cover ring-1 ring-white/10"
             />
             <img
-              src={featured[3]?.image || "/products/women-02.jpg"}
+              src={featured[3]?.image || "/products/ai/women-2.jpg"}
               alt=""
               className="mt-10 aspect-[3/4] rounded-[2rem] object-cover ring-1 ring-white/10"
             />
