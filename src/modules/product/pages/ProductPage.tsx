@@ -144,7 +144,7 @@ export function ProductPage() {
                   onClick={() => setSizeGuideOpen(true)}
                   className="flex items-center gap-1.5 text-xs font-semibold text-gold-dark hover:text-navy"
                 >
-                  <Ruler className="h-3.5 w-3.5" /> Find my size
+                  <Ruler className="h-3.5 w-3.5" /> Size Chart
                 </button>
               )}
             </div>
