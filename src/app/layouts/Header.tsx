@@ -11,7 +11,7 @@ import type { Section } from "@/modules/product/types";
 const SECTIONS: { key: Section; label: string }[] = [
   { key: "men", label: "Men" },
   { key: "women", label: "Women" },
-  { key: "kids", label: "Kids" },
+  { key: "kids", label: "Kids & Boys" },
 ];
 
 export function Header() {

@@ -304,6 +304,7 @@ export const BOYS_KURTA: Chart = {
 /** Pick the right chart for a product (null = no chart, e.g. women — hide guide). */
 export function chartFor(section?: string, categoryName?: string): Chart | null {
   const n = (categoryName || "").toLowerCase();
+  if (n.includes("jacket")) return null; // jackets have no measurement chart
   const isKurta = n.includes("kurta") || n.includes("pathani") || n.includes("pajama");
   if (section === "men") return isKurta ? KURTA : THOBE;
   if (section === "kids") return isKurta ? BOYS_KURTA : KIDS_THOBE;
