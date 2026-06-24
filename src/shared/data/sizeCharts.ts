@@ -301,6 +301,14 @@ export const BOYS_KURTA: Chart = {
   ],
 };
 
+/** All charts the admin can edit (order shown in the Settings page). */
+export const EDITABLE_CHARTS: Chart[] = [THOBE, KURTA, KIDS_THOBE, BOYS_KURTA];
+
+/** Built-in default rows keyed by chart id (fallback when settings are empty). */
+export const DEFAULT_CHART_ROWS: Record<string, Row[]> = Object.fromEntries(
+  EDITABLE_CHARTS.map((c) => [c.id, c.rows]),
+);
+
 /** Pick the right chart for a product (null = no chart, e.g. women — hide guide). */
 export function chartFor(section?: string, categoryName?: string): Chart | null {
   const n = (categoryName || "").toLowerCase();

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Save, Plus, Trash2 } from "lucide-react";
 import { useAdminSettings, useUpdateSettings } from "../hooks/useSettings";
 import { PageLoader } from "@/shared/components/PageLoader";
 import { getApiErrorMessage } from "@/shared/api/http";
 import { toast } from "@/shared/lib/toast";
+import { EDITABLE_CHARTS, DEFAULT_CHART_ROWS, type Chart } from "@/shared/data/sizeCharts";
 import type { StoreSettings } from "../types";
+
+type ChartRow = Record<string, string | number>;
 
 export function SettingsPage() {
   const { data, isLoading } = useAdminSettings();
@@ -12,13 +15,25 @@ export function SettingsPage() {
   const [form, setForm] = useState<StoreSettings | null>(null);
 
   useEffect(() => {
-    if (data) setForm(data);
+    if (!data) return;
+    // Seed each editable chart from saved rows, falling back to built-in defaults.
+    const sizeChartRows: Record<string, ChartRow[]> = {};
+    for (const c of EDITABLE_CHARTS) {
+      const saved = data.sizeChartRows?.[c.id];
+      const base = saved && saved.length ? saved : (DEFAULT_CHART_ROWS[c.id] as ChartRow[]);
+      sizeChartRows[c.id] = base.map((r) => ({ ...r }));
+    }
+    setForm({ ...data, sizeChartRows });
   }, [data]);
 
   if (isLoading || !form) return <PageLoader />;
 
   function set<K extends keyof StoreSettings>(key: K, value: StoreSettings[K]) {
     setForm((f) => (f ? { ...f, [key]: value } : f));
+  }
+
+  function setChartRows(id: string, rows: ChartRow[]) {
+    setForm((f) => (f ? { ...f, sizeChartRows: { ...f.sizeChartRows, [id]: rows } } : f));
   }
 
   async function save() {
@@ -155,6 +170,23 @@ export function SettingsPage() {
         </p>
       </Card>
 
+      <Card title="Size Charts">
+        <p className="mb-4 text-xs text-muted-foreground">
+          These tables power the “Size Chart” button on product pages. Edit a value, add or remove a
+          row, then Save. All measurements are in inches.
+        </p>
+        <div className="space-y-8">
+          {EDITABLE_CHARTS.map((chart) => (
+            <SizeChartEditor
+              key={chart.id}
+              chart={chart}
+              rows={form.sizeChartRows?.[chart.id] ?? []}
+              onChange={(rows) => setChartRows(chart.id, rows)}
+            />
+          ))}
+        </div>
+      </Card>
+
       <button
         onClick={save}
         disabled={update.isPending}
@@ -200,3 +232,77 @@ function Field({
 }
 const inp =
   "w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring";
+
+function SizeChartEditor({
+  chart,
+  rows,
+  onChange,
+}: {
+  chart: Chart;
+  rows: ChartRow[];
+  onChange: (rows: ChartRow[]) => void;
+}) {
+  const cols = chart.columns;
+
+  function updateCell(ri: number, key: string, val: string) {
+    onChange(rows.map((r, i) => (i === ri ? { ...r, [key]: val } : r)));
+  }
+  function addRow() {
+    onChange([...rows, Object.fromEntries(cols.map((c) => [c.key, ""]))]);
+  }
+  function delRow(ri: number) {
+    onChange(rows.filter((_, i) => i !== ri));
+  }
+
+  return (
+    <div>
+      <h3 className="mb-2 text-sm font-semibold text-foreground">{chart.label}</h3>
+      <div className="overflow-x-auto rounded-lg border border-border">
+        <table className="w-full min-w-[520px] text-sm">
+          <thead>
+            <tr className="border-b border-border bg-muted/40 text-left text-[11px] uppercase tracking-wide text-muted-foreground">
+              {cols.map((c) => (
+                <th key={c.key} className="px-2 py-2 font-semibold">
+                  {c.label}
+                </th>
+              ))}
+              <th className="w-10 px-2 py-2" />
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, ri) => (
+              <tr key={ri} className="border-b border-border/60">
+                {cols.map((c) => (
+                  <td key={c.key} className="px-1.5 py-1">
+                    <input
+                      value={String(r[c.key] ?? "")}
+                      onChange={(e) => updateCell(ri, c.key, e.target.value)}
+                      className="w-full rounded border border-input bg-background px-2 py-1.5 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
+                    />
+                  </td>
+                ))}
+                <td className="px-1.5 py-1 text-right">
+                  <button
+                    type="button"
+                    onClick={() => delRow(ri)}
+                    aria-label="Delete row"
+                    className="rounded p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <button
+        type="button"
+        onClick={addRow}
+        className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:border-navy"
+      >
+        <Plus className="h-3.5 w-3.5" /> Add row
+      </button>
+    </div>
+  );
+}

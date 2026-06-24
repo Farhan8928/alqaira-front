@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
-import { chartFor } from "@/shared/data/sizeCharts";
+import { chartFor, type Row } from "@/shared/data/sizeCharts";
+import { useStoreSettings } from "@/modules/settings/hooks/useSettings";
 import { cn } from "@/lib/utils";
 
 /**
@@ -17,8 +18,13 @@ export function SizeGuide({
   section?: string;
   categoryName?: string;
 }) {
+  const { data: settings } = useStoreSettings();
   const chart = chartFor(section, categoryName);
   if (!open || !chart) return null;
+
+  // Admin-edited rows from settings override the built-in defaults.
+  const override = settings?.sizeChartRows?.[chart.id];
+  const rows: Row[] = override && override.length ? override : chart.rows;
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
@@ -53,7 +59,7 @@ export function SizeGuide({
               </tr>
             </thead>
             <tbody>
-              {chart.rows.map((r, i) => (
+              {rows.map((r, i) => (
                 <tr key={i} className="border-b border-border/60">
                   {chart.columns.map((c) => (
                     <td

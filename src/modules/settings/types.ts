@@ -14,6 +14,8 @@ export type StoreSettings = {
   codEnabled?: boolean;
   onlinePaymentEnabled?: boolean;
   announcement?: string;
+  /** Editable size-chart rows keyed by chart id; empty = use built-in defaults. */
+  sizeChartRows?: Record<string, Array<Record<string, string | number>>>;
 };
 
 export type SettingsPayload = Partial<StoreSettings>;
