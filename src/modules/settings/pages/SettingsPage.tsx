@@ -4,10 +4,12 @@ import { useAdminSettings, useUpdateSettings } from "../hooks/useSettings";
 import { PageLoader } from "@/shared/components/PageLoader";
 import { getApiErrorMessage } from "@/shared/api/http";
 import { toast } from "@/shared/lib/toast";
-import { EDITABLE_CHARTS, DEFAULT_CHART_ROWS, type Chart } from "@/shared/data/sizeCharts";
+import { EDITABLE_CHARTS, DEFAULT_CHARTS, type Chart } from "@/shared/data/sizeCharts";
 import type { StoreSettings } from "../types";
 
+type ChartCol = { key: string; label: string };
 type ChartRow = Record<string, string | number>;
+type ChartData = { columns: ChartCol[]; rows: ChartRow[] };
 
 export function SettingsPage() {
   const { data, isLoading } = useAdminSettings();
@@ -16,14 +18,17 @@ export function SettingsPage() {
 
   useEffect(() => {
     if (!data) return;
-    // Seed each editable chart from saved rows, falling back to built-in defaults.
-    const sizeChartRows: Record<string, ChartRow[]> = {};
+    // Seed each editable chart from saved data, falling back to built-in defaults.
+    const sizeCharts: Record<string, ChartData> = {};
     for (const c of EDITABLE_CHARTS) {
-      const saved = data.sizeChartRows?.[c.id];
-      const base = saved && saved.length ? saved : (DEFAULT_CHART_ROWS[c.id] as ChartRow[]);
-      sizeChartRows[c.id] = base.map((r) => ({ ...r }));
+      const saved = data.sizeCharts?.[c.id];
+      const base = saved?.columns?.length ? saved : (DEFAULT_CHARTS[c.id] as ChartData);
+      sizeCharts[c.id] = {
+        columns: base.columns.map((col) => ({ ...col })),
+        rows: base.rows.map((r) => ({ ...r })),
+      };
     }
-    setForm({ ...data, sizeChartRows });
+    setForm({ ...data, sizeCharts });
   }, [data]);
 
   if (isLoading || !form) return <PageLoader />;
@@ -32,8 +37,8 @@ export function SettingsPage() {
     setForm((f) => (f ? { ...f, [key]: value } : f));
   }
 
-  function setChartRows(id: string, rows: ChartRow[]) {
-    setForm((f) => (f ? { ...f, sizeChartRows: { ...f.sizeChartRows, [id]: rows } } : f));
+  function setChart(id: string, data: ChartData) {
+    setForm((f) => (f ? { ...f, sizeCharts: { ...f.sizeCharts, [id]: data } } : f));
   }
 
   async function save() {
@@ -180,8 +185,8 @@ export function SettingsPage() {
             <SizeChartEditor
               key={chart.id}
               chart={chart}
-              rows={form.sizeChartRows?.[chart.id] ?? []}
-              onChange={(rows) => setChartRows(chart.id, rows)}
+              value={form.sizeCharts?.[chart.id] ?? { columns: [], rows: [] }}
+              onChange={(data) => setChart(chart.id, data)}
             />
           ))}
         </div>
@@ -235,23 +240,45 @@ const inp =
 
 function SizeChartEditor({
   chart,
-  rows,
+  value,
   onChange,
 }: {
   chart: Chart;
-  rows: ChartRow[];
-  onChange: (rows: ChartRow[]) => void;
+  value: ChartData;
+  onChange: (data: ChartData) => void;
 }) {
-  const cols = chart.columns;
+  const { columns, rows } = value;
 
+  function updateColLabel(ci: number, label: string) {
+    onChange({ ...value, columns: columns.map((c, i) => (i === ci ? { ...c, label } : c)) });
+  }
+  function addCol() {
+    const key = `c_${Math.random().toString(36).slice(2, 8)}`;
+    onChange({
+      columns: [...columns, { key, label: "New Column" }],
+      rows: rows.map((r) => ({ ...r, [key]: "" })),
+    });
+  }
+  function delCol(ci: number) {
+    if (columns.length <= 1) return; // keep at least one column
+    const key = columns[ci].key;
+    onChange({
+      columns: columns.filter((_, i) => i !== ci),
+      rows: rows.map((r) => {
+        const copy = { ...r };
+        delete copy[key];
+        return copy;
+      }),
+    });
+  }
   function updateCell(ri: number, key: string, val: string) {
-    onChange(rows.map((r, i) => (i === ri ? { ...r, [key]: val } : r)));
+    onChange({ ...value, rows: rows.map((r, i) => (i === ri ? { ...r, [key]: val } : r)) });
   }
   function addRow() {
-    onChange([...rows, Object.fromEntries(cols.map((c) => [c.key, ""]))]);
+    onChange({ ...value, rows: [...rows, Object.fromEntries(columns.map((c) => [c.key, ""]))] });
   }
   function delRow(ri: number) {
-    onChange(rows.filter((_, i) => i !== ri));
+    onChange({ ...value, rows: rows.filter((_, i) => i !== ri) });
   }
 
   return (
@@ -260,19 +287,35 @@ function SizeChartEditor({
       <div className="overflow-x-auto rounded-lg border border-border">
         <table className="w-full min-w-[520px] text-sm">
           <thead>
-            <tr className="border-b border-border bg-muted/40 text-left text-[11px] uppercase tracking-wide text-muted-foreground">
-              {cols.map((c) => (
-                <th key={c.key} className="px-2 py-2 font-semibold">
-                  {c.label}
+            <tr className="border-b border-border bg-muted/40">
+              {columns.map((c, ci) => (
+                <th key={c.key} className="px-1.5 py-2">
+                  <div className="flex items-center gap-1">
+                    <input
+                      value={c.label}
+                      onChange={(e) => updateColLabel(ci, e.target.value)}
+                      className="w-full rounded border border-input bg-background px-2 py-1 text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-ring"
+                    />
+                    {columns.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => delCol(ci)}
+                        aria-label="Delete column"
+                        className="shrink-0 rounded p-1 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </th>
               ))}
-              <th className="w-10 px-2 py-2" />
+              <th className="w-9 px-1.5 py-2" />
             </tr>
           </thead>
           <tbody>
             {rows.map((r, ri) => (
               <tr key={ri} className="border-b border-border/60">
-                {cols.map((c) => (
+                {columns.map((c) => (
                   <td key={c.key} className="px-1.5 py-1">
                     <input
                       value={String(r[c.key] ?? "")}
@@ -296,13 +339,22 @@ function SizeChartEditor({
           </tbody>
         </table>
       </div>
-      <button
-        type="button"
-        onClick={addRow}
-        className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:border-navy"
-      >
-        <Plus className="h-3.5 w-3.5" /> Add row
-      </button>
+      <div className="mt-2 flex gap-2">
+        <button
+          type="button"
+          onClick={addRow}
+          className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:border-navy"
+        >
+          <Plus className="h-3.5 w-3.5" /> Add row
+        </button>
+        <button
+          type="button"
+          onClick={addCol}
+          className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-foreground hover:border-navy"
+        >
+          <Plus className="h-3.5 w-3.5" /> Add column
+        </button>
+      </div>
     </div>
   );
 }

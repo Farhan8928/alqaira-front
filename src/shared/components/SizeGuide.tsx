@@ -22,9 +22,11 @@ export function SizeGuide({
   const chart = chartFor(section, categoryName);
   if (!open || !chart) return null;
 
-  // Admin-edited rows from settings override the built-in defaults.
-  const override = settings?.sizeChartRows?.[chart.id];
-  const rows: Row[] = override && override.length ? override : chart.rows;
+  // Admin-edited chart (columns + rows) from settings overrides the defaults.
+  const override = settings?.sizeCharts?.[chart.id];
+  const columns = override?.columns?.length ? override.columns : chart.columns;
+  const rows: Row[] = override?.rows?.length ? override.rows : chart.rows;
+  const sizeKey = columns[0]?.key; // first column is the size label
 
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
@@ -51,7 +53,7 @@ export function SizeGuide({
           <table className="w-full min-w-[480px] text-sm">
             <thead>
               <tr className="border-b border-border text-left text-[11px] uppercase tracking-wide text-muted-foreground">
-                {chart.columns.map((c) => (
+                {columns.map((c) => (
                   <th key={c.key} className="py-2 px-3 font-semibold first:pl-0">
                     {c.label}
                   </th>
@@ -61,12 +63,12 @@ export function SizeGuide({
             <tbody>
               {rows.map((r, i) => (
                 <tr key={i} className="border-b border-border/60">
-                  {chart.columns.map((c) => (
+                  {columns.map((c) => (
                     <td
                       key={c.key}
                       className={cn(
                         "py-2.5 px-3 first:pl-0",
-                        c.key === chart.sizeKey
+                        c.key === sizeKey
                           ? "font-semibold text-foreground"
                           : "text-muted-foreground",
                       )}
