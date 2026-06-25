@@ -169,7 +169,9 @@ export function FindMySize({
                 Length <strong className="text-foreground">{String(rec.length)}"</strong> from your
                 height · Width{" "}
                 <strong className="text-foreground">
-                  {String(rec[sizeKey]).replace(/^\s*\d+\s*/, "").trim() || "—"}
+                  {String(rec[sizeKey])
+                    .replace(/^\s*\d+\s*/, "")
+                    .trim() || "—"}
                 </strong>{" "}
                 from your {bodyMode}
               </p>
