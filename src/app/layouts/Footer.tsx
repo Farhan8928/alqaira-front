@@ -45,7 +45,7 @@ export function Footer() {
         <FooterCol title="Shop">
           <FooterLink to="/shop?section=men">Men</FooterLink>
           <FooterLink to="/shop?section=women">Women</FooterLink>
-          <FooterLink to="/shop?section=kids">Kids</FooterLink>
+          <FooterLink to="/shop?section=kids">Kids &amp; Boys</FooterLink>
           <FooterLink to="/shop">All Products</FooterLink>
         </FooterCol>
 

@@ -15,7 +15,11 @@ const SORTS = [
   { value: "rating", label: "Top Rated" },
 ];
 
-const SECTION_LABELS: Record<string, string> = { men: "Men", women: "Women", kids: "Kids" };
+const SECTION_LABELS: Record<string, string> = {
+  men: "Men",
+  women: "Women",
+  kids: "Kids & Boys",
+};
 
 export function ShopPage() {
   const [params, setParams] = useSearchParams();

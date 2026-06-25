@@ -60,7 +60,9 @@ export function HomePage() {
         >
           {/* Copy */}
           <div className="reveal max-w-2xl">
-            <p className="eyebrow text-gold-light">For Men, Women &amp; Kids · Across India</p>
+            <p className="eyebrow text-gold-light">
+              For Men, Women, Kids &amp; Boys · Across India
+            </p>
             {/* Clear, keyword-rich H1 — names the product in plain English the
                Indian audience understands instantly (and ranks for those terms). */}
             <h1

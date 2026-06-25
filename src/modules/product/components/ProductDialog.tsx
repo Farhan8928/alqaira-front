@@ -165,7 +165,7 @@ export function ProductDialog({
           >
             <option value="men">Men</option>
             <option value="women">Women</option>
-            <option value="kids">Kids</option>
+            <option value="kids">Kids &amp; Boys</option>
           </select>
         </Field>
         <Field label="Category">

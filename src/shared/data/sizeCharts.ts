@@ -104,7 +104,7 @@ export const KURTA: Chart = {
 /** Kids / Boys Thobe (by age) */
 export const KIDS_THOBE: Chart = {
   id: "kids-thobe",
-  label: "Boys Thobe Size",
+  label: "Kids & Boys Thobe Size",
   sizeKey: "age",
   finder: {
     by: "age",
@@ -289,7 +289,7 @@ export const KIDS_THOBE: Chart = {
 /** Kids / Boys Kurta (by age) */
 export const BOYS_KURTA: Chart = {
   id: "kids-kurta",
-  label: "Boys Kurta Size",
+  label: "Kids & Boys Kurta Size",
   sizeKey: "age",
   finder: {
     by: "age",
