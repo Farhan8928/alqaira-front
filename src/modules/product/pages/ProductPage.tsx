@@ -160,8 +160,9 @@ export function ProductPage() {
                   <button
                     type="button"
                     onClick={() => setSizeGuideOpen(true)}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
+                    className="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
                   >
+                    <Ruler className="h-3.5 w-3.5" />
                     Size Chart
                   </button>
                 )}
