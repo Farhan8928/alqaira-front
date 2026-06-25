@@ -39,6 +39,8 @@ export function ProductPage() {
 
   const { product, related } = data;
   const images = product.images.length ? product.images : [""];
+  const sizeChart = chartFor(product.section, product.categoryName);
+  const showFindMySize = sizeChart?.id === "thobe";
 
   function add(buyNow = false) {
     if (!variant) {
@@ -140,21 +142,25 @@ export function ProductPage() {
           <div className="mt-7">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium text-foreground">Select Size</span>
-              <div className="flex items-center gap-4">
-                {chartFor(product.section, product.categoryName)?.id === "thobe" && (
+              <div className="flex items-center gap-3.5 text-[11px] font-semibold uppercase tracking-[0.16em]">
+                {showFindMySize && (
                   <button
                     type="button"
                     onClick={() => setFindSizeOpen(true)}
-                    className="flex items-center gap-1.5 text-xs font-semibold text-gold-dark hover:text-navy"
+                    className="group inline-flex items-center gap-1.5 text-gold-dark"
                   >
-                    <Ruler className="h-3.5 w-3.5" /> Find my size
+                    <Ruler className="h-3.5 w-3.5" />
+                    <span className="border-b border-gold/40 pb-px transition-colors group-hover:border-gold">
+                      Find my size
+                    </span>
                   </button>
                 )}
-                {chartFor(product.section, product.categoryName) && (
+                {showFindMySize && sizeChart && <span className="h-3 w-px bg-border" />}
+                {sizeChart && (
                   <button
                     type="button"
                     onClick={() => setSizeGuideOpen(true)}
-                    className="text-xs font-semibold text-gold-dark hover:text-navy"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
                   >
                     Size Chart
                   </button>
