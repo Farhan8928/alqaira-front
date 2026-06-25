@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Heart, ShoppingBag, Truck, RefreshCw, ShieldCheck, Check, Ruler } from "lucide-react";
 import { SizeGuide } from "@/shared/components/SizeGuide";
+import { FindMySize } from "@/shared/components/FindMySize";
 import { chartFor } from "@/shared/data/sizeCharts";
 import { useProduct } from "../hooks/useProducts";
 import { ProductGrid } from "../components/ProductGrid";
@@ -26,6 +27,7 @@ export function ProductPage() {
   const [variant, setVariant] = useState<Variant | null>(null);
   const [qty, setQty] = useState(1);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+  const [findSizeOpen, setFindSizeOpen] = useState(false);
 
   const wished = useAppSelector((s) =>
     data ? s.wishlist.items.some((i) => i.id === data.product.id) : false,
@@ -138,15 +140,26 @@ export function ProductPage() {
           <div className="mt-7">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-medium text-foreground">Select Size</span>
-              {chartFor(product.section, product.categoryName) && (
-                <button
-                  type="button"
-                  onClick={() => setSizeGuideOpen(true)}
-                  className="flex items-center gap-1.5 text-xs font-semibold text-gold-dark hover:text-navy"
-                >
-                  <Ruler className="h-3.5 w-3.5" /> Size Chart
-                </button>
-              )}
+              <div className="flex items-center gap-4">
+                {chartFor(product.section, product.categoryName)?.id === "thobe" && (
+                  <button
+                    type="button"
+                    onClick={() => setFindSizeOpen(true)}
+                    className="flex items-center gap-1.5 text-xs font-semibold text-gold-dark hover:text-navy"
+                  >
+                    <Ruler className="h-3.5 w-3.5" /> Find my size
+                  </button>
+                )}
+                {chartFor(product.section, product.categoryName) && (
+                  <button
+                    type="button"
+                    onClick={() => setSizeGuideOpen(true)}
+                    className="text-xs font-semibold text-gold-dark hover:text-navy"
+                  >
+                    Size Chart
+                  </button>
+                )}
+              </div>
             </div>
             {variant && variant.stock <= 5 && (
               <p className="mb-2 text-xs font-medium text-destructive">Only {variant.stock} left</p>
@@ -288,6 +301,14 @@ export function ProductPage() {
         onClose={() => setSizeGuideOpen(false)}
         section={product.section}
         categoryName={product.categoryName}
+      />
+      <FindMySize
+        open={findSizeOpen}
+        onClose={() => setFindSizeOpen(false)}
+        onViewChart={() => {
+          setFindSizeOpen(false);
+          setSizeGuideOpen(true);
+        }}
       />
     </div>
   );

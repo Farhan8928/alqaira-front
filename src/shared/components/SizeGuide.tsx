@@ -48,13 +48,16 @@ export function SizeGuide({
           </button>
         </div>
 
-        {/* Chart table */}
-        <div className="overflow-auto px-5 py-5">
+        {/* Chart table — sticky header stays visible while scrolling */}
+        <div className="overflow-auto px-5 pb-5">
           <table className="w-full min-w-[480px] text-sm">
             <thead>
-              <tr className="border-b border-border text-left text-[11px] uppercase tracking-wide text-muted-foreground">
+              <tr className="text-left text-[11px] uppercase tracking-wide text-muted-foreground">
                 {columns.map((c) => (
-                  <th key={c.key} className="py-2 px-3 font-semibold first:pl-0">
+                  <th
+                    key={c.key}
+                    className="sticky top-0 z-10 border-b border-border bg-card px-3 pb-2 pt-5 font-semibold first:pl-0"
+                  >
                     {c.label}
                   </th>
                 ))}

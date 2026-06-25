@@ -30,7 +30,20 @@ const ADULT_COLS: Col[] = [
   { key: "sleeves", label: "Sleeves" },
 ];
 
-/** Men's Thobe / Jubba */
+/**
+ * Men's Thobe — two-axis sizing (AL KAMEEZ style): each size is a Length number
+ * (52–60) × a Width letter (S–3XL). Height picks the length, chest/weight picks
+ * the width. Admin can override this whole chart from Settings.
+ */
+const THOBE_COLS: Col[] = [
+  { key: "size", label: "Size" },
+  { key: "length", label: "Length" },
+  { key: "chest", label: "Chest" },
+  { key: "shoulder", label: "Shoulder" },
+  { key: "sleeves", label: "Sleeves" },
+  { key: "bottom", label: "Bottom" },
+];
+
 export const THOBE: Chart = {
   id: "thobe",
   label: "Men's Thobe Size",
@@ -42,14 +55,30 @@ export const THOBE: Chart = {
     placeholder: "e.g. 40",
     unit: "inches",
   },
-  columns: ADULT_COLS,
+  columns: THOBE_COLS,
   rows: [
-    { size: "S", length: 54, chest: 36, waist: 34, shoulder: 16, sleeves: 24 },
-    { size: "M", length: 56, chest: 38, waist: 36, shoulder: 17, sleeves: 24.5 },
-    { size: "L", length: 58, chest: 40, waist: 38, shoulder: 18, sleeves: 25 },
-    { size: "XL", length: 60, chest: 42, waist: 40, shoulder: 19, sleeves: 25.5 },
-    { size: "2XL", length: 60, chest: 44, waist: 42, shoulder: 20, sleeves: 26 },
-    { size: "3XL", length: 62, chest: 46, waist: 44, shoulder: 21, sleeves: 26.5 },
+    { size: "52 S", length: 52, chest: 40, shoulder: 17, sleeves: 23.5, bottom: 60 },
+    { size: "52 M", length: 52, chest: 42, shoulder: 17.25, sleeves: 24, bottom: 60 },
+    { size: "52 L", length: 52, chest: 44, shoulder: 18.5, sleeves: 24, bottom: 61 },
+    { size: "54 S", length: 54, chest: 41, shoulder: 17, sleeves: 24.5, bottom: 60 },
+    { size: "54 M", length: 54, chest: 43, shoulder: 17.5, sleeves: 24.5, bottom: 60 },
+    { size: "54 L", length: 54, chest: 45, shoulder: 18.5, sleeves: 24, bottom: 61 },
+    { size: "54 XL", length: 54, chest: 47, shoulder: 19, sleeves: 24, bottom: 62 },
+    { size: "56 S", length: 56, chest: 40, shoulder: 17, sleeves: 24.5, bottom: 60 },
+    { size: "56 M", length: 56, chest: 42, shoulder: 17.25, sleeves: 25, bottom: 60 },
+    { size: "56 L", length: 56, chest: 46, shoulder: 18.5, sleeves: 24.5, bottom: 61 },
+    { size: "56 XL", length: 56, chest: 50, shoulder: 19, sleeves: 24.5, bottom: 62 },
+    { size: "56 2XL", length: 56, chest: 54, shoulder: 21, sleeves: 24.5, bottom: 62 },
+    { size: "56 3XL", length: 56, chest: 58, shoulder: 22, sleeves: 25, bottom: 62 },
+    { size: "58 S", length: 58, chest: 40, shoulder: 17, sleeves: 26, bottom: 60 },
+    { size: "58 M", length: 58, chest: 44, shoulder: 17.25, sleeves: 25.5, bottom: 60 },
+    { size: "58 L", length: 58, chest: 46, shoulder: 18.5, sleeves: 25, bottom: 61 },
+    { size: "58 XL", length: 58, chest: 50, shoulder: 19, sleeves: 25, bottom: 62 },
+    { size: "58 2XL", length: 58, chest: 54, shoulder: 21, sleeves: 25.5, bottom: 62 },
+    { size: "58 3XL", length: 58, chest: 58, shoulder: 22, sleeves: 25.5, bottom: 62 },
+    { size: "60 M", length: 60, chest: 44, shoulder: 17.25, sleeves: 25, bottom: 60 },
+    { size: "60 L", length: 60, chest: 48, shoulder: 18.5, sleeves: 26, bottom: 61 },
+    { size: "60 XL", length: 60, chest: 50, shoulder: 19, sleeves: 26, bottom: 62 },
   ],
 };
 
