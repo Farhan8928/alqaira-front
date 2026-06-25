@@ -93,7 +93,7 @@ export function FindMySize({
                   value={feet}
                   onChange={setFeet}
                   min={4}
-                  max={7}
+                  max={6}
                   suffix="ft"
                   placeholder="Feet"
                 />
@@ -110,8 +110,8 @@ export function FindMySize({
               <RangeSelect
                 value={cm}
                 onChange={setCm}
-                min={140}
-                max={210}
+                min={145}
+                max={200}
                 suffix="cm"
                 placeholder="Height (cm)"
                 wide
@@ -136,8 +136,8 @@ export function FindMySize({
               <RangeSelect
                 value={chest}
                 onChange={setChest}
-                min={32}
-                max={60}
+                min={34}
+                max={58}
                 suffix="in"
                 placeholder="Chest (in)"
                 wide
@@ -146,8 +146,8 @@ export function FindMySize({
               <RangeSelect
                 value={weight}
                 onChange={setWeight}
-                min={40}
-                max={150}
+                min={45}
+                max={130}
                 suffix="kg"
                 placeholder="Weight (kg)"
                 wide
