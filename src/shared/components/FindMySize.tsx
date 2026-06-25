@@ -92,7 +92,7 @@ export function FindMySize({
                 <RangeSelect
                   value={feet}
                   onChange={setFeet}
-                  min={4}
+                  min={5}
                   max={6}
                   suffix="ft"
                   placeholder="Feet"
@@ -110,7 +110,7 @@ export function FindMySize({
               <RangeSelect
                 value={cm}
                 onChange={setCm}
-                min={145}
+                min={150}
                 max={200}
                 suffix="cm"
                 placeholder="Height (cm)"
