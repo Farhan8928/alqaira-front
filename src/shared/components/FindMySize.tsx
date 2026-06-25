@@ -165,6 +165,14 @@ export function FindMySize({
                 Recommended size
               </p>
               <p className="mt-1 font-display text-5xl text-foreground">{rec[sizeKey]}</p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Length <strong className="text-foreground">{String(rec.length)}"</strong> from your
+                height · Width{" "}
+                <strong className="text-foreground">
+                  {String(rec[sizeKey]).replace(/^\s*\d+\s*/, "").trim() || "—"}
+                </strong>{" "}
+                from your {bodyMode}
+              </p>
               <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-1 text-xs text-muted-foreground">
                 {rec.length != null && <span>Length {String(rec.length)}"</span>}
                 {rec.chest != null && <span>Chest {String(rec.chest)}"</span>}
