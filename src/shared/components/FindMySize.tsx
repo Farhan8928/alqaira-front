@@ -214,9 +214,12 @@ export function FindMySize({
 type Row = Record<string, string | number>;
 
 /**
- * Two-axis recommendation (AL KAMEEZ style):
- *   1. Height → Length: nearest available length number (length ≈ height − 12").
- *   2. Among rows of that length, Chest/Weight → Width.
+ * Two-axis recommendation (AL KAMEEZ style). A thobe MUST fit the chest (it
+ * can't close otherwise), while length can flex — so:
+ *   1. Chest is the hard filter: keep only sizes whose chest ≥ body chest.
+ *   2. Among those, pick the length closest to the height (length ≈ height − 12"),
+ *      then the snuggest width (smallest chest that still fits).
+ * Weight (fallback) is converted to an estimated chest first.
  * Needs height AND one body metric (chest preferred).
  */
 function recommend(
@@ -227,35 +230,27 @@ function recommend(
     weightKg,
   }: { heightIn: number | null; chest: number | null; weightKg: number | null },
 ): Row | null {
-  if (!rows.length || !heightIn || (!chest && !weightKg)) return null;
+  if (!rows.length || !heightIn || (chest == null && weightKg == null)) return null;
 
-  // 1) pick the length closest to (height − 12)
-  const lengths = [...new Set(rows.map((r) => Number(r.length)).filter((n) => !Number.isNaN(n)))];
-  const target = heightIn - 12;
-  const chosenLen = lengths.length
-    ? lengths.reduce(
-        (best, l) => (Math.abs(l - target) < Math.abs(best - target) ? l : best),
-        lengths[0],
-      )
-    : null;
+  // Effective body chest (estimate from weight when chest isn't given:
+  // 45–130 kg ≈ 34–58 in, the chart's chest span).
+  const bodyChest =
+    chest != null ? chest : 34 + ((Math.max(45, Math.min(130, weightKg as number)) - 45) / 85) * 24;
 
-  // 2) candidate rows for that length, sorted by chest (smallest → largest width)
-  let pool = chosenLen != null ? rows.filter((r) => Number(r.length) === chosenLen) : rows.slice();
-  if (!pool.length) pool = rows.slice();
-  const byChest = [...pool].sort((a, b) => Number(a.chest) - Number(b.chest));
+  const targetLen = heightIn - 12;
 
-  if (chest) {
-    return byChest.find((r) => Number(r.chest) >= chest) ?? byChest[byChest.length - 1];
+  // 1) sizes that actually fit the chest; if none, the largest chest available.
+  let pool = rows.filter((r) => Number(r.chest) >= bodyChest);
+  if (!pool.length) {
+    const maxChest = Math.max(...rows.map((r) => Number(r.chest)));
+    pool = rows.filter((r) => Number(r.chest) === maxChest);
   }
-  // weight → split the length's available widths into even bands
-  const minW = 55;
-  const maxW = 115;
-  const band = (maxW - minW) / byChest.length;
-  const i = Math.min(
-    byChest.length - 1,
-    Math.max(0, Math.floor(((weightKg as number) - minW) / band)),
-  );
-  return byChest[i];
+
+  // 2) closest length to the height, then snuggest width (smallest chest).
+  return [...pool].sort((a, b) => {
+    const dl = Math.abs(Number(a.length) - targetLen) - Math.abs(Number(b.length) - targetLen);
+    return dl !== 0 ? dl : Number(a.chest) - Number(b.chest);
+  })[0];
 }
 
 function Toggle({
