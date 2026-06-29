@@ -167,7 +167,9 @@ export function PolicyPage({ which }: { which: keyof typeof POLICIES }) {
           <p className="eyebrow text-gold-light">Policies</p>
           <h1 className="mt-4 font-display text-5xl md:text-6xl">{policy.title}</h1>
           <div className="mx-auto mt-5 h-px w-14 bg-gold" />
-          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/70">{policy.intro}</p>
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/70">
+            {policy.intro}
+          </p>
         </div>
       </section>
       <section className="mx-auto max-w-3xl space-y-10 px-4 py-16 md:px-6">

@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, ArrowUpRight, Play, Pause } from "lucide-react";
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export type HeroSlide = {
   image: string;
@@ -21,19 +24,26 @@ const AUTOPLAY_MS = 6500;
  */
 export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [hover, setHover] = useState(false);
+  const [reduced] = useState(prefersReducedMotion);
+  // User play/pause intent (WCAG 2.2.2). Off by default when reduced motion is on.
+  const [playing, setPlaying] = useState(!reduced);
   const touchX = useRef<number | null>(null);
   const count = slides.length;
+
+  // Auto-advance only when the user is playing, not hovering/focused, and motion
+  // is allowed.
+  const autoplaying = playing && !hover && !reduced;
 
   const go = useCallback((n: number) => setIndex(((n % count) + count) % count), [count]);
   const next = useCallback(() => go(index + 1), [go, index]);
   const prev = useCallback(() => go(index - 1), [go, index]);
 
   useEffect(() => {
-    if (paused || count <= 1) return;
+    if (!autoplaying || count <= 1) return;
     const id = window.setInterval(() => setIndex((i) => (i + 1) % count), AUTOPLAY_MS);
     return () => window.clearInterval(id);
-  }, [paused, count, index]);
+  }, [autoplaying, count, index]);
 
   const onTouchStart = (e: React.TouchEvent) => (touchX.current = e.touches[0].clientX);
   const onTouchEnd = (e: React.TouchEvent) => {
@@ -43,17 +53,24 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
     touchX.current = null;
   };
 
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") prev();
+    else if (e.key === "ArrowRight") next();
+  };
+
   if (!count) return null;
 
   return (
     <section
       className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-navy text-white lg:h-[90vh]"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onFocusCapture={() => setHover(true)}
+      onBlurCapture={() => setHover(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
+      onKeyDown={onKeyDown}
+      tabIndex={0}
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
@@ -70,9 +87,13 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             <img
               src={s.image}
               alt=""
-              className={`h-full w-full object-cover transition-transform ease-out ${
-                active ? "scale-110 duration-[8000ms]" : "scale-100 duration-0"
-              }`}
+              className="h-full w-full object-cover will-change-transform"
+              // Keyframe (not transition) so the zoom always plays on the active
+              // slide — including slide 1 on first load, which mounts active and
+              // therefore never triggered a transition before.
+              style={{
+                animation: active && !reduced ? "hero-zoom 9000ms ease-out forwards" : undefined,
+              }}
             />
             {/* Spot scrim — a light left-side gradient that fades out by ~58% so
                the image stays bright while the copy keeps contrast. A subtle
@@ -133,15 +154,32 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
             <span className="text-white/45">{String(count).padStart(2, "0")}</span>
           </span>
 
-          {/* Progress line (restarts each slide; pauses on hover) */}
+          {/* Pause / Play (WCAG 2.2.2 — visible control to stop auto-rotation) */}
+          {count > 1 && (
+            <button
+              onClick={() => setPlaying((p) => !p)}
+              aria-label={playing ? "Pause slideshow" : "Play slideshow"}
+              className="group flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/25 bg-white/5 backdrop-blur transition-colors hover:border-gold hover:bg-gold"
+            >
+              {playing ? (
+                <Pause className="h-3.5 w-3.5 text-white transition-colors group-hover:text-navy" />
+              ) : (
+                <Play className="h-3.5 w-3.5 text-white transition-colors group-hover:text-navy" />
+              )}
+            </button>
+          )}
+
+          {/* Progress line (restarts each slide; only animates while auto-playing) */}
           <div className="relative h-px flex-1 bg-white/20">
             <span
               key={index}
               className="absolute inset-y-0 left-0 origin-left bg-gold"
               style={{
                 width: "100%",
-                transform: "scaleX(0)",
-                animation: paused ? undefined : `hero-progress ${AUTOPLAY_MS}ms linear forwards`,
+                transform: autoplaying ? "scaleX(0)" : "scaleX(1)",
+                animation: autoplaying
+                  ? `hero-progress ${AUTOPLAY_MS}ms linear forwards`
+                  : undefined,
               }}
             />
           </div>
