@@ -5,6 +5,9 @@ import { useFeaturedProducts, useNewArrivals } from "@/modules/product/hooks/use
 import { useCategories } from "@/modules/category/hooks/useCategories";
 import { Reveal } from "@/shared/components/Reveal";
 import { HeroSlider, type HeroSlide } from "../components/HeroSlider";
+import { WhyUs } from "../components/WhyUs";
+import { Testimonials } from "../components/Testimonials";
+import { InstaGallery } from "../components/InstaGallery";
 
 /* Premium hero slides — generated editorial imagery (scripts/generate_hero.py). */
 const HERO_SLIDES: HeroSlide[] = [
@@ -191,6 +194,11 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ── Why ALQAIRA — USP value props ───────────────────────────────────── */}
+      <div className="mt-24 md:mt-32">
+        <WhyUs />
+      </div>
+
       {/* ── Editorial band ──────────────────────────────────────────────────── */}
       <section className="aq-grain relative my-24 overflow-hidden bg-navy text-white">
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 md:px-6 lg:grid-cols-2">
@@ -235,8 +243,16 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ── Testimonials — social proof ─────────────────────────────────────── */}
+      <div className="mt-24 md:mt-32">
+        <Testimonials />
+      </div>
+
+      {/* ── Instagram / lookbook gallery ────────────────────────────────────── */}
+      <InstaGallery />
+
       {/* ── Newsletter ──────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 py-24 md:px-6">
+      <section className="mx-auto max-w-7xl px-4 pb-24 md:px-6">
         <Reveal className="relative overflow-hidden rounded-sm border border-gold/25 bg-secondary/60 px-6 py-16 text-center">
           <p className="eyebrow">Newsletter</p>
           <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl leading-[1.05] text-foreground md:text-5xl">
