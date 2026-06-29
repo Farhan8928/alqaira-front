@@ -74,9 +74,11 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                 active ? "scale-110 duration-[8000ms]" : "scale-100 duration-0"
               }`}
             />
-            {/* Legibility gradients — stronger on the left where the copy sits */}
-            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/55 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-transparent to-navy/25" />
+            {/* Spot scrim — a light left-side gradient that fades out by ~58% so
+               the image stays bright while the copy keeps contrast. A subtle
+               bottom scrim only for the control bar. (No full-image darkening.) */}
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(22,24,58,0.78)_0%,rgba(22,24,58,0.30)_32%,rgba(22,24,58,0)_58%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(22,24,58,0.55)_0%,rgba(22,24,58,0)_24%)]" />
 
             {/* Copy */}
             <div className="absolute inset-0 flex items-center">
