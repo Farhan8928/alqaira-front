@@ -147,16 +147,16 @@ export function HomePage() {
       </section>
 
       {/* ── Shop by category — the 8 storefront categories ──────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 py-20 md:px-6">
+      <section className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
         <Reveal>
           <Heading eyebrow="Categories" title="Shop by Category" link="/shop" />
         </Reveal>
-        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5 lg:grid-cols-4">
           {cards.map((c) => (
             <Link
               key={c.slug}
               to={`/shop?section=${c.section}&category=${c.slug}`}
-              className="group relative aspect-[3/4] overflow-hidden rounded-sm bg-secondary aq-zoom"
+              className="group relative aspect-[3/4] overflow-hidden rounded-sm bg-secondary aq-zoom ring-1 ring-transparent transition-all duration-500 hover:ring-gold/40 hover:shadow-2xl hover:shadow-navy/15"
             >
               {c.image && (
                 <img
@@ -166,16 +166,14 @@ export function HomePage() {
                   className="h-full w-full object-cover"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/92 via-navy/30 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-5">
-                <div>
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-gold-light">{c.tag}</p>
-                  <h3 className="mt-1 font-display text-lg leading-tight text-white md:text-xl">
-                    {c.label}
-                  </h3>
-                </div>
-                <span className="flex h-9 w-9 shrink-0 translate-y-2 items-center justify-center rounded-full bg-white/15 opacity-0 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                  <ArrowUpRight className="h-4 w-4 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/25 to-transparent transition-opacity duration-500 group-hover:from-navy/95" />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <p className="text-[10px] uppercase tracking-[0.32em] text-gold-light">{c.tag}</p>
+                <h3 className="mt-1.5 font-display text-lg leading-tight text-white md:text-xl">
+                  {c.label}
+                </h3>
+                <span className="mt-2 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/0 transition-all duration-300 group-hover:text-gold-light">
+                  Shop Now <ArrowUpRight className="h-3.5 w-3.5" />
                 </span>
               </div>
             </Link>

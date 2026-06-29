@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, ArrowUpRight } from "lucide-react";
 
 export type HeroSlide = {
   image: string;
@@ -11,12 +11,13 @@ export type HeroSlide = {
   cta2?: { label: string; to: string };
 };
 
-const AUTOPLAY_MS = 6000;
+const AUTOPLAY_MS = 6500;
 
 /**
- * Premium full-width hero slider — autoplay, arrows, dot indicators, swipe and
- * keyboard support, with a slow Ken-Burns zoom on the active slide. Pauses on
- * hover/focus and respects prefers-reduced-motion. No external carousel dep.
+ * Premium full-width hero slider — autoplay with a thin progress bar, an editorial
+ * bottom control bar (slide counter + paired arrows, kept clear of the headline),
+ * dot indicators, swipe + keyboard support and a slow Ken-Burns zoom on the active
+ * slide. Pauses on hover/focus and respects prefers-reduced-motion. No carousel dep.
  */
 export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
@@ -28,14 +29,12 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
   const next = useCallback(() => go(index + 1), [go, index]);
   const prev = useCallback(() => go(index - 1), [go, index]);
 
-  // Autoplay
   useEffect(() => {
     if (paused || count <= 1) return;
     const id = window.setInterval(() => setIndex((i) => (i + 1) % count), AUTOPLAY_MS);
     return () => window.clearInterval(id);
-  }, [paused, count]);
+  }, [paused, count, index]);
 
-  // Touch swipe
   const onTouchStart = (e: React.TouchEvent) => (touchX.current = e.touches[0].clientX);
   const onTouchEnd = (e: React.TouchEvent) => {
     if (touchX.current == null) return;
@@ -48,7 +47,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
 
   return (
     <section
-      className="relative h-[80vh] min-h-[520px] w-full overflow-hidden bg-navy text-white lg:h-[88vh]"
+      className="relative h-[82vh] min-h-[560px] w-full overflow-hidden bg-navy text-white lg:h-[90vh]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -63,42 +62,44 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         return (
           <div
             key={i}
-            className={`absolute inset-0 transition-opacity duration-[900ms] ease-out ${
+            className={`absolute inset-0 transition-opacity duration-[1100ms] ease-out ${
               active ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
             aria-hidden={!active}
           >
-            {/* Image with slow Ken-Burns zoom while active */}
             <img
               src={s.image}
               alt=""
               className={`h-full w-full object-cover transition-transform ease-out ${
-                active ? "scale-110 duration-[7000ms]" : "scale-100 duration-0"
+                active ? "scale-110 duration-[8000ms]" : "scale-100 duration-0"
               }`}
             />
-            {/* Legibility gradients — strong on the left where copy sits */}
-            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/55 to-navy/10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-navy/20" />
+            {/* Legibility gradients — stronger on the left where the copy sits */}
+            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/55 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-transparent to-navy/25" />
 
             {/* Copy */}
             <div className="absolute inset-0 flex items-center">
-              <div className="mx-auto w-full max-w-7xl px-5 md:px-6">
+              <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
                 <div
-                  className={`max-w-xl transition-all duration-700 ${
-                    active ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+                  className={`max-w-2xl transition-all duration-[900ms] ease-out ${
+                    active ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
                   }`}
                 >
-                  <p className="eyebrow text-gold-light">{s.eyebrow}</p>
+                  <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.34em] text-gold-light">
+                    <span className="h-px w-8 bg-gold/60" />
+                    {s.eyebrow}
+                  </p>
                   <h1
-                    className="mt-4 font-display font-semibold leading-[0.98]"
-                    style={{ fontSize: "clamp(2.25rem, 5vw, 4.5rem)" }}
+                    className="mt-6 font-display font-semibold leading-[0.95] tracking-[-0.01em]"
+                    style={{ fontSize: "clamp(2.5rem, 5.4vw, 5rem)" }}
                   >
                     {s.title}
                   </h1>
-                  <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/75">
+                  <p className="mt-6 max-w-md text-[15px] leading-relaxed text-white/70">
                     {s.subtitle}
                   </p>
-                  <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <div className="mt-9 flex flex-wrap items-center gap-3">
                     <Link to={s.cta.to} className="btn-gold group">
                       {s.cta.label}
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -106,9 +107,10 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
                     {s.cta2 && (
                       <Link
                         to={s.cta2.to}
-                        className="btn rounded-full border border-white/30 px-7 py-3 text-white hover:border-gold hover:text-gold"
+                        className="group inline-flex items-center gap-2 rounded-full border border-white/30 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-gold hover:text-gold"
                       >
                         {s.cta2.label}
+                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </Link>
                     )}
                   </div>
@@ -119,42 +121,67 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         );
       })}
 
-      {/* Arrows */}
-      {count > 1 && (
-        <>
-          <button
-            onClick={prev}
-            aria-label="Previous slide"
-            className="group absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-navy/30 backdrop-blur transition-colors hover:border-gold hover:bg-navy/60 md:left-6"
-          >
-            <ChevronLeft className="h-5 w-5 text-white group-hover:text-gold" />
-          </button>
-          <button
-            onClick={next}
-            aria-label="Next slide"
-            className="group absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-navy/30 backdrop-blur transition-colors hover:border-gold hover:bg-navy/60 md:right-6"
-          >
-            <ChevronRight className="h-5 w-5 text-white group-hover:text-gold" />
-          </button>
-        </>
-      )}
+      {/* ── Editorial control bar — counter · progress · arrows ──────────────── */}
+      <div className="absolute inset-x-0 bottom-0 z-10">
+        <div className="mx-auto flex max-w-7xl items-center gap-6 px-6 pb-7 md:px-10 md:pb-9">
+          {/* Counter */}
+          <span className="aq-nums shrink-0 text-sm font-medium tracking-wider text-white/80">
+            <span className="text-gold-light">{String(index + 1).padStart(2, "0")}</span>
+            <span className="mx-1.5 text-white/30">/</span>
+            <span className="text-white/45">{String(count).padStart(2, "0")}</span>
+          </span>
 
-      {/* Dots */}
-      {count > 1 && (
-        <div className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2.5">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`Go to slide ${i + 1}`}
-              aria-current={i === index}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === index ? "w-8 bg-gold" : "w-2.5 bg-white/45 hover:bg-white/70"
-              }`}
+          {/* Progress line (restarts each slide; pauses on hover) */}
+          <div className="relative h-px flex-1 bg-white/20">
+            <span
+              key={index}
+              className="absolute inset-y-0 left-0 origin-left bg-gold"
+              style={{
+                width: "100%",
+                transform: "scaleX(0)",
+                animation: paused ? undefined : `hero-progress ${AUTOPLAY_MS}ms linear forwards`,
+              }}
             />
-          ))}
+          </div>
+
+          {/* Dots (compact) */}
+          {count > 1 && (
+            <div className="hidden items-center gap-2 sm:flex">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => go(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                  aria-current={i === index}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === index ? "w-7 bg-gold" : "w-1.5 bg-white/40 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Paired arrows */}
+          {count > 1 && (
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                onClick={prev}
+                aria-label="Previous slide"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/5 backdrop-blur transition-colors hover:border-gold hover:bg-gold"
+              >
+                <ArrowLeft className="h-4 w-4 text-white transition-colors group-hover:text-navy" />
+              </button>
+              <button
+                onClick={next}
+                aria-label="Next slide"
+                className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/5 backdrop-blur transition-colors hover:border-gold hover:bg-gold"
+              >
+                <ArrowRight className="h-4 w-4 text-white transition-colors group-hover:text-navy" />
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
 }
