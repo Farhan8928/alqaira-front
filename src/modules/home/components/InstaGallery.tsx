@@ -37,7 +37,12 @@ export function InstaGallery() {
             rel="noopener noreferrer"
             className="group relative aspect-square overflow-hidden rounded-sm bg-secondary aq-zoom"
           >
-            <img src={src} alt="ALQAIRA on Instagram" loading="lazy" className="h-full w-full object-cover" />
+            <img
+              src={src}
+              alt="ALQAIRA on Instagram"
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
             <div className="absolute inset-0 flex items-center justify-center bg-navy/0 transition-colors duration-300 group-hover:bg-navy/45">
               <Instagram className="h-6 w-6 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             </div>

@@ -1,4 +1,4 @@
-import { Sparkles, Feather, Users, Truck } from "lucide-react";
+import { Sparkles, Feather, Users, Ruler } from "lucide-react";
 import { Reveal } from "@/shared/components/Reveal";
 
 /* USP / "why us" — restrained value props, the trust signal premium homepages
@@ -20,9 +20,9 @@ const POINTS = [
     text: "Men, women, kids and boys — thobes, abayas, pathani and kurta sets.",
   },
   {
-    icon: Truck,
-    title: "Pan-India Delivery",
-    text: "Fast shipping, cash on delivery and easy 7-day returns, nationwide.",
+    icon: Ruler,
+    title: "Perfect-Fit Sizing",
+    text: "Detailed size charts and Find-My-Size for the right length, every time.",
   },
 ];
 

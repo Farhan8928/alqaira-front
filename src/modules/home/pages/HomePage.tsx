@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Truck, Wallet, ShieldCheck, RefreshCw } from "lucide-react";
 import { ProductGrid } from "@/modules/product/components/ProductGrid";
 import { useFeaturedProducts, useNewArrivals } from "@/modules/product/hooks/useProducts";
 import { useCategories } from "@/modules/category/hooks/useCategories";
@@ -136,16 +136,13 @@ export function HomePage() {
       {/* ── Hero slider ─────────────────────────────────────────────────────── */}
       <HeroSlider slides={HERO_SLIDES} />
 
-      {/* ── Trust strip ─────────────────────────────────────────────────────── */}
+      {/* ── Trust strip — transactional trust (icons), distinct from Why-Us ──── */}
       <section className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 py-6 text-center md:px-6">
-          <Pill label="Pan-India Delivery" />
-          <Dot />
-          <Pill label="Secure Payments · Razorpay & COD" />
-          <Dot />
-          <Pill label="7-Day Easy Returns" />
-          <Dot />
-          <Pill label="Crafted in Premium Fabric" />
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-5 px-4 py-7 md:grid-cols-4 md:px-6">
+          <TrustItem icon={Truck} label="Pan-India Delivery" />
+          <TrustItem icon={Wallet} label="Cash on Delivery" />
+          <TrustItem icon={ShieldCheck} label="Secure Payments" />
+          <TrustItem icon={RefreshCw} label="7-Day Easy Returns" />
         </div>
       </section>
 
@@ -220,13 +217,15 @@ export function HomePage() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="/banners/slide-men.jpg"
-              alt=""
+              src="/banners/cat-thobe-jubba.jpg"
+              alt="Premium men's thobe"
+              loading="lazy"
               className="aspect-[3/4] rounded-sm object-cover ring-1 ring-white/10"
             />
             <img
-              src="/banners/slide-women.jpg"
-              alt=""
+              src="/banners/cat-abaya.jpg"
+              alt="Premium women's abaya"
+              loading="lazy"
               className="mt-10 aspect-[3/4] rounded-[2rem] object-cover ring-1 ring-white/10"
             />
           </div>
@@ -299,14 +298,19 @@ function Heading({ eyebrow, title, link }: { eyebrow: string; title: string; lin
   );
 }
 
-function Pill({ label }: { label: string }) {
+function TrustItem({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}) {
   return (
-    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/70">
-      {label}
-    </span>
+    <div className="flex items-center justify-center gap-3">
+      <Icon className="h-5 w-5 shrink-0 text-gold-dark" />
+      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/75 md:text-xs">
+        {label}
+      </span>
+    </div>
   );
-}
-
-function Dot() {
-  return <span className="hidden h-1 w-1 rounded-full bg-gold/60 sm:inline-block" />;
 }
