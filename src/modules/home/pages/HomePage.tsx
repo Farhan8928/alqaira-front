@@ -147,7 +147,7 @@ export function HomePage() {
       </section>
 
       {/* ── Shop by category — the 8 storefront categories ──────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
+      <section id="categories" className="mx-auto max-w-7xl px-4 py-24 md:px-6 md:py-32">
         <Reveal>
           <Heading eyebrow="Categories" title="Shop by Category" link="/shop" />
         </Reveal>
@@ -182,7 +182,7 @@ export function HomePage() {
       </section>
 
       {/* ── Featured ────────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 md:px-6">
+      <section id="featured" className="mx-auto max-w-7xl px-4 md:px-6">
         <Reveal>
           <Heading eyebrow="Top Picks" title="Featured Products" link="/shop" />
         </Reveal>
@@ -192,12 +192,15 @@ export function HomePage() {
       </section>
 
       {/* ── Why ALQAIRA — USP value props ───────────────────────────────────── */}
-      <div className="mt-24 md:mt-32">
+      <div id="why" className="mt-24 md:mt-32">
         <WhyUs />
       </div>
 
       {/* ── Editorial band ──────────────────────────────────────────────────── */}
-      <section className="aq-grain relative my-24 overflow-hidden bg-navy text-white">
+      <section
+        id="editorial"
+        className="aq-grain relative my-24 overflow-hidden bg-navy text-white"
+      >
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 md:px-6 lg:grid-cols-2">
           <div className="reveal">
             <div className="aq-rule" />
@@ -233,7 +236,7 @@ export function HomePage() {
       </section>
 
       {/* ── New arrivals ────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 md:px-6">
+      <section id="arrivals" className="mx-auto max-w-7xl px-4 md:px-6">
         <Reveal>
           <Heading eyebrow="Just Added" title="New Arrivals" link="/shop?sort=newest" />
         </Reveal>
@@ -243,15 +246,17 @@ export function HomePage() {
       </section>
 
       {/* ── Testimonials — social proof ─────────────────────────────────────── */}
-      <div className="mt-24 md:mt-32">
+      <div id="testimonials" className="mt-24 md:mt-32">
         <Testimonials />
       </div>
 
       {/* ── Instagram / lookbook gallery ────────────────────────────────────── */}
-      <InstaGallery />
+      <div id="insta">
+        <InstaGallery />
+      </div>
 
       {/* ── Newsletter ──────────────────────────────────────────────────────── */}
-      <section className="mx-auto max-w-7xl px-4 pb-24 md:px-6">
+      <section id="newsletter" className="mx-auto max-w-7xl px-4 pb-24 md:px-6">
         <Reveal className="relative overflow-hidden rounded-sm border border-gold/25 bg-secondary/60 px-6 py-16 text-center">
           <p className="eyebrow">Newsletter</p>
           <h2 className="mx-auto mt-4 max-w-xl font-display text-4xl leading-[1.05] text-foreground md:text-5xl">

@@ -3,13 +3,15 @@ import { Reveal } from "@/shared/components/Reveal";
 
 /* UGC / lookbook strip — premium homepages reuse styled imagery as social proof.
    Reuses the generated editorial shots; links out to the brand's Instagram. */
+// All portrait (3:4) shots so they crop cleanly to a square; balanced across
+// men / women / kids to mirror the catalogue.
 const SHOTS = [
   "/banners/cat-thobe-jubba.jpg",
-  "/banners/slide-women.jpg",
+  "/banners/cat-abaya.jpg",
   "/banners/cat-jacket.jpg",
   "/banners/cat-kids-kurta-pajama.jpg",
   "/banners/cat-pathani-suit.jpg",
-  "/banners/cat-abaya.jpg",
+  "/banners/cat-kids-thobe-jubba.jpg",
 ];
 
 const INSTA_URL = "https://instagram.com";
