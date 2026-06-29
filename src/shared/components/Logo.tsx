@@ -21,6 +21,12 @@ export function LogoMark({ size = 40 }: { size?: number; disc?: boolean }) {
   );
 }
 
+/**
+ * Horizontal lockup — emblem + wordmark side by side — for headers, footers and
+ * other wide contexts. `size` is the emblem height; the wordmark scales with it.
+ * (The stacked single-image logo squashes badly in a short header, so we lay the
+ * mark and wordmark out horizontally for a crisp, premium result.)
+ */
 export function Logo({
   size = 44,
   className,
@@ -32,13 +38,24 @@ export function Logo({
   showTagline?: boolean;
 }) {
   return (
-    <img
-      src={SRC}
-      alt="ALQAIRA — Premium Thobes, Jubbas & Abayas"
-      height={size}
-      className={cn("w-auto object-contain", className)}
-      style={{ height: size }}
-    />
+    <span
+      className={cn("inline-flex items-center", className)}
+      style={{ gap: size * 0.22 }}
+      aria-label="ALQAIRA"
+    >
+      <img
+        src="/alqaira-mark.png"
+        alt=""
+        className="w-auto object-contain"
+        style={{ height: size }}
+      />
+      <img
+        src="/alqaira-wordmark.png"
+        alt="ALQAIRA"
+        className="w-auto object-contain"
+        style={{ height: size * 0.46 }}
+      />
+    </span>
   );
 }
 
