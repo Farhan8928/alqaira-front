@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { User, Package, MapPin, LogOut, Plus, Trash2, Loader2 } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { clearCustomer, setCustomer, updateCustomer } from "../accountSlice";
@@ -21,8 +21,7 @@ export function AccountPage() {
   const [tab, setTab] = useState<Tab>("orders");
 
   if (!customer || !token) {
-    navigate("/login");
-    return null;
+    return <Navigate to="/login" replace />;
   }
 
   function logout() {

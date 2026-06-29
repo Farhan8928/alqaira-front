@@ -9,8 +9,8 @@ export function Footer() {
 
   return (
     <footer className="mt-16 bg-navy text-white/80">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4 md:px-6">
-        <div className="md:col-span-1">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-6 md:px-6">
+        <div className="md:col-span-2">
           <Logo tone="light" size={64} />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
             {settings?.tagline || "Premium Thobes, Jubbas & Abayas"} — good-quality clothing in
@@ -56,6 +56,13 @@ export function Footer() {
           <FooterLink to="/contact">Contact</FooterLink>
         </FooterCol>
 
+        <FooterCol title="Policies">
+          <FooterLink to="/shipping">Shipping Policy</FooterLink>
+          <FooterLink to="/returns">Returns &amp; Refunds</FooterLink>
+          <FooterLink to="/privacy">Privacy Policy</FooterLink>
+          <FooterLink to="/terms">Terms &amp; Conditions</FooterLink>
+        </FooterCol>
+
         <FooterCol title="Get in touch">
           {settings?.supportPhone && (
             <span className="flex items-center gap-2 text-sm text-white/60">
@@ -76,11 +83,23 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-white/40 md:flex-row md:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-5 text-xs text-white/40 md:flex-row md:px-6">
           <p>
             © {year} {settings?.storeName || "ALQAIRA"}. All rights reserved.
           </p>
-          <p>Made with care · Secure payments · Cash on Delivery available</p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="mr-1 text-[10px] uppercase tracking-[0.18em] text-white/35">
+              We Accept
+            </span>
+            {["Visa", "Mastercard", "RuPay", "UPI", "Razorpay", "COD"].map((m) => (
+              <span
+                key={m}
+                className="rounded border border-white/15 bg-white/5 px-2 py-1 text-[10px] font-semibold tracking-wide text-white/70"
+              >
+                {m}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

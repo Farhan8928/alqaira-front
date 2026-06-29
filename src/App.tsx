@@ -48,6 +48,9 @@ const AboutPage = lazy(() =>
 const ContactPage = lazy(() =>
   import("./modules/home/pages/ContactPage").then((m) => ({ default: m.ContactPage })),
 );
+const PolicyPage = lazy(() =>
+  import("./modules/home/pages/PolicyPage").then((m) => ({ default: m.PolicyPage })),
+);
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 const AdminLoginPage = lazy(() =>
@@ -127,6 +130,10 @@ export default function App() {
           <Route path="account" element={<AccountPage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />
+          <Route path="privacy" element={<PolicyPage which="privacy" />} />
+          <Route path="terms" element={<PolicyPage which="terms" />} />
+          <Route path="returns" element={<PolicyPage which="returns" />} />
+          <Route path="shipping" element={<PolicyPage which="shipping" />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

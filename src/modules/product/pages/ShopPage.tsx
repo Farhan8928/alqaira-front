@@ -105,6 +105,11 @@ export function ShopPage() {
                   )}
                 >
                   {c.name}
+                  {!section && (
+                    <span className="ml-1.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+                      {c.section === "kids" ? "Kids" : c.section === "women" ? "Women" : "Men"}
+                    </span>
+                  )}
                 </button>
               ))}
             </FilterGroup>

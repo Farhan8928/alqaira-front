@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
-import { LogoMark } from "@/shared/components/Logo";
 
 export function AboutPage() {
   return (
     <div className="aq-page">
-      <section className="bg-navy py-20 text-center text-white">
-        <LogoMark size={56} />
-        <h1 className="mt-5 font-display text-5xl">About Us</h1>
-        <p className="mx-auto mt-3 max-w-xl px-4 text-sm text-white/70">
-          ALQAIRA sells premium thobes, jubbas, kurta pajama and abayas for men, women and kids —
-          good-quality clothing at a fair price.
-        </p>
+      <section className="aq-grain relative overflow-hidden bg-navy py-24 text-center text-white">
+        <div className="relative mx-auto max-w-2xl px-4">
+          <p className="eyebrow text-gold-light">Our Story</p>
+          <h1 className="mt-4 font-display text-5xl md:text-6xl">About ALQAIRA</h1>
+          <div className="mx-auto mt-5 h-px w-14 bg-gold" />
+          <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/70">
+            Premium thobes, jubbas, kurta pajama and abayas for men, women and kids — good-quality
+            clothing at a fair price.
+          </p>
+        </div>
       </section>
       <section className="mx-auto max-w-3xl space-y-6 px-4 py-16 text-sm leading-relaxed text-muted-foreground md:px-6">
         <p>
